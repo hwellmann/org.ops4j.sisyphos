@@ -30,6 +30,8 @@ import org.apache.tamaya.spi.PropertyValue;
 
 public class SisyphosPropertySource extends BasePropertySource {
 
+    private static final int ORDINAL = 90;
+
     @Override
     public Map<String, PropertyValue> getProperties() {
         InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("sisyphos.properties");
@@ -52,7 +54,7 @@ public class SisyphosPropertySource extends BasePropertySource {
 
     @Override
     public int getOrdinal() {
-        return 90;
+        return ORDINAL;
     }
 
 }

@@ -32,6 +32,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.Initialized;
 import javax.enterprise.event.Observes;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response.Status;
 
 import org.ops4j.sisyphos.http.api.HttpConfiguration;
 import org.ops4j.sisyphos.http.api.HttpRequestBuilder;
@@ -47,12 +48,12 @@ public class Simulations {
 
         HttpRequestBuilder listPosts = http("List all posts")
             .get("posts")
-            .check(status().is(200));
+            .check(status().is(Status.OK.getStatusCode()));
 
         HttpRequestBuilder createPost = http("Create post")
             .post("posts")
             .body(raw("{\"title\":\"New post\", \"body\": \"bla\", \"userId\": 17}"))
-            .check(status().is(201));
+            .check(status().is(Status.CREATED.getStatusCode()));
 
         simulation("jsonplaceholder")
             .withConfig(httpConfig)

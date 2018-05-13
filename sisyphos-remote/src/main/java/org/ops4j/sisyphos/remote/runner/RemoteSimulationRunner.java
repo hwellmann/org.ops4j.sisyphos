@@ -55,6 +55,8 @@ import reactor.core.scheduler.Schedulers;
 @RequestScoped
 public class RemoteSimulationRunner implements SimulationRunner {
 
+    private static final int NUM_CONNECTIONS = 100;
+
     private static Logger log = LoggerFactory.getLogger(RemoteSimulationRunner.class);
 
     private FluxSink<StatisticsMessage> messages;
@@ -70,7 +72,7 @@ public class RemoteSimulationRunner implements SimulationRunner {
 
     @PostConstruct
     public void init() {
-        this.client = new ResteasyClientBuilder().connectionPoolSize(100).maxPooledPerRoute(100).build();
+        this.client = new ResteasyClientBuilder().connectionPoolSize(NUM_CONNECTIONS).maxPooledPerRoute(NUM_CONNECTIONS).build();
         this.logSubscriber = new LogSubscriber();
         this.workerUris = ConfigurationFactory.configuration().getWorkerUri().split(",");
     }

@@ -18,6 +18,7 @@
 package org.ops4j.sisyphos.core.log;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import org.ops4j.sisyphos.api.session.Session;
@@ -35,61 +36,61 @@ public class StringToMessageAdapter implements Adapter<String, StatisticsMessage
 
     @Override
     public StatisticsMessage adapt(String s) {
-        String[] parts = s.split("\t");
-        String type = parts[0];
+        Iterator<String> it = Arrays.asList(s.split("\t")).iterator();
+        String type = it.next();
         switch (type) {
             case "REQUEST":
-                return buildResponseMessage(parts);
+                return buildResponseMessage(it);
             case "USER":
-                return buildSessionMessage(parts);
+                return buildSessionMessage(it);
             case "RUN":
-                return buildSimulationMessage(parts);
+                return buildSimulationMessage(it);
             case "GROUP":
-                return buildGroupMessage(parts);
+                return buildGroupMessage(it);
         }
         throw new IllegalArgumentException(s);
     }
 
-    private StatisticsMessage buildResponseMessage(String[] parts) {
-        String scenario = parts[1];
-        long userId = Long.parseLong(parts[2]);
-        List<String> groups = Arrays.asList(parts[3].split(","));
-        String name = parts[4];
-        long requestTimestamp = Long.parseLong(parts[5]);
-        long responseTimestamp = Long.parseLong(parts[6]);
-        Status status = Status.valueOf(parts[7]);
+    private StatisticsMessage buildResponseMessage(Iterator<String> it) {
+        String scenario = it.next();
+        long userId = Long.parseLong(it.next());
+        List<String> groups = Arrays.asList(it.next().split(","));
+        String name = it.next();
+        long requestTimestamp = Long.parseLong(it.next());
+        long responseTimestamp = Long.parseLong(it.next());
+        Status status = Status.valueOf(it.next());
 
         return new RequestMessage(scenario, userId, groups, name, requestTimestamp,
             responseTimestamp, status);
     }
 
-    private StatisticsMessage buildSessionMessage(String[] parts) {
-        String scenario = parts[1];
-        long userId = Long.parseLong(parts[2]);
+    private StatisticsMessage buildSessionMessage(Iterator<String> it) {
+        String scenario = it.next();
+        long userId = Long.parseLong(it.next());
         Session session = new SessionImpl(scenario, userId);
-        SessionEvent event = SessionEvent.valueOf(parts[3]);
-        long startTimestamp = Long.parseLong(parts[4]);
+        SessionEvent event = SessionEvent.valueOf(it.next());
+        long startTimestamp = Long.parseLong(it.next());
         session.setStartDate(startTimestamp);
-        long endTimestamp = Long.parseLong(parts[5]);
+        long endTimestamp = Long.parseLong(it.next());
         return new SessionMessage(session, event, endTimestamp);
     }
 
-    private StatisticsMessage buildSimulationMessage(String[] parts) {
-        String simulationName = parts[1];
-        String simulationId = parts[2];
-        long startTimestamp = Long.parseLong(parts[3]);
-        String runDescription = parts[4];
+    private StatisticsMessage buildSimulationMessage(Iterator<String> it) {
+        String simulationName = it.next();
+        String simulationId = it.next();
+        long startTimestamp = Long.parseLong(it.next());
+        String runDescription = it.next();
         return new SimulationMessage(simulationName, simulationId, startTimestamp, runDescription, "");
     }
 
-    private StatisticsMessage buildGroupMessage(String[] parts) {
-        String scenario = parts[1];
-        long userId = Long.parseLong(parts[2]);
-        List<String> groups = Arrays.asList(parts[3].split(","));
-        long startTimestamp = Long.parseLong(parts[4]);
-        long endTimestamp = Long.parseLong(parts[5]);
-        long cumulatedResponseTime = Long.parseLong(parts[6]);
-        Status status = Status.valueOf(parts[7]);
+    private StatisticsMessage buildGroupMessage(Iterator<String> it) {
+        String scenario = it.next();
+        long userId = Long.parseLong(it.next());
+        List<String> groups = Arrays.asList(it.next().split(","));
+        long startTimestamp = Long.parseLong(it.next());
+        long endTimestamp = Long.parseLong(it.next());
+        long cumulatedResponseTime = Long.parseLong(it.next());
+        Status status = Status.valueOf(it.next());
         return new GroupMessage(scenario, userId, groups, startTimestamp, endTimestamp, cumulatedResponseTime, status);
     }
 }
