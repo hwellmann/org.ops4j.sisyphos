@@ -21,7 +21,6 @@ import org.ops4j.sisyphos.api.session.Session;
 import org.ops4j.sisyphos.api.user.AtIntervalUserBuilder;
 import org.ops4j.sisyphos.api.user.AtOnceUserBuilder;
 import org.ops4j.sisyphos.api.user.UserBuilder;
-import org.ops4j.sisyphos.core.runner.SessionFactory;
 
 import reactor.core.publisher.Flux;
 import reactor.core.scheduler.Schedulers;

@@ -18,7 +18,7 @@
 package org.ops4j.sisyphos.core.session;
 
 import org.ops4j.sisyphos.api.session.Session;
-import org.ops4j.sisyphos.core.runner.SessionFactory;
+import org.ops4j.sisyphos.core.builder.SessionFactory;
 
 /**
  * @author Harald Wellmann

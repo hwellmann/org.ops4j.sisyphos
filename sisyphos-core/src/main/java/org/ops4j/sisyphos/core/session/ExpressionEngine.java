@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ops4j.sisyphos.core.runner;
+package org.ops4j.sisyphos.core.session;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,7 +30,6 @@ import javax.el.ValueExpression;
 
 import org.ops4j.sisyphos.api.session.Session;
 import org.ops4j.sisyphos.core.config.ConfigurationFactory;
-import org.ops4j.sisyphos.core.session.SessionImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

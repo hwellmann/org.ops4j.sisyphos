@@ -28,7 +28,6 @@ import java.util.Map;
 import org.ops4j.sisyphos.api.action.Group;
 import org.ops4j.sisyphos.api.session.Session;
 import org.ops4j.sisyphos.api.session.Status;
-import org.ops4j.sisyphos.core.runner.ExpressionEngine;
 
 /**
  * @author Harald Wellmann

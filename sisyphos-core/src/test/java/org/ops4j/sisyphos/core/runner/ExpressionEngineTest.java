@@ -28,6 +28,7 @@ import javax.json.JsonObject;
 
 import org.assertj.core.util.Files;
 import org.junit.Test;
+import org.ops4j.sisyphos.core.session.ExpressionEngine;
 import org.ops4j.sisyphos.core.session.SessionImpl;
 
 /**

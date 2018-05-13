@@ -20,7 +20,7 @@ package org.ops4j.sisyphos.http.api;
 import javax.ws.rs.client.Entity;
 
 import org.ops4j.sisyphos.api.session.Session;
-import org.ops4j.sisyphos.core.runner.ExpressionEngine;
+import org.ops4j.sisyphos.core.session.ExpressionEngine;
 import org.ops4j.sisyphos.core.session.SessionImpl;
 
 /**

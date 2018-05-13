@@ -34,7 +34,7 @@ import org.ops4j.sisyphos.api.simulation.Sisyphos;
 import org.ops4j.sisyphos.core.builder.FluxBuilder;
 import org.ops4j.sisyphos.core.builder.FluxBuilderAdapter;
 import org.ops4j.sisyphos.core.builder.ScenarioContext;
-import org.ops4j.sisyphos.core.runner.ExpressionEngine;
+import org.ops4j.sisyphos.core.session.ExpressionEngine;
 import org.ops4j.sisyphos.core.session.SessionImpl;
 import org.ops4j.sisyphos.http.api.Check;
 import org.ops4j.sisyphos.http.api.CheckBuilder;
