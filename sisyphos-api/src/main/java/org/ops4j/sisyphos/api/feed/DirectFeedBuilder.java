@@ -17,10 +17,10 @@
  */
 package org.ops4j.sisyphos.api.feed;
 
+import io.vavr.collection.IndexedSeq;
 import io.vavr.collection.LinkedHashMap;
 import io.vavr.collection.List;
 import io.vavr.collection.Map;
-import io.vavr.collection.Vector;
 
 /**
  * @author Harald Wellmann
@@ -29,7 +29,7 @@ import io.vavr.collection.Vector;
 public class DirectFeedBuilder<T> implements FeedBuilder<T> {
 
     private FeedStrategy strategy;
-    private Vector<Map<String, T>> records;
+    private IndexedSeq<Map<String, T>> records;
     private String propertyName;
 
     public DirectFeedBuilder(String propertyName, FeedStrategy strategy, T[] values) {
@@ -49,7 +49,7 @@ public class DirectFeedBuilder<T> implements FeedBuilder<T> {
         return propertyName;
     }
 
-    public Vector<Map<String, T>> getRecords() {
+    public IndexedSeq<Map<String, T>> getRecords() {
         return records;
     }
 

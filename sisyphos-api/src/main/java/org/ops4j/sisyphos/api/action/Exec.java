@@ -119,7 +119,7 @@ public interface Exec<T> extends ActionBuilder {
         return exec(new IfBuilder(condition, ifAction, elseAction));
     }
 
-    default public <F> T consume(FeedBuilder<F> feedBuilder) {
+    default <F> T consume(FeedBuilder<F> feedBuilder) {
         return exec(new ConsumeActionBuilder<F>(feedBuilder));
     }
 

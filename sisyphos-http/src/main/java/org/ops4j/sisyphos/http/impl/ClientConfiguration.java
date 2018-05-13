@@ -28,6 +28,10 @@ import org.ops4j.sisyphos.http.api.HttpConfiguration;
  */
 public class ClientConfiguration {
 
+    private ClientConfiguration() {
+        // hidden constructor
+    }
+
     public static Client client(HttpConfiguration httpConfig) {
 
         Client client = ClientBuilder.newClient()

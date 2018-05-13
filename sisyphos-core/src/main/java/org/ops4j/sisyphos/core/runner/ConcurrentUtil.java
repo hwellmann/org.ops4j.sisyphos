@@ -30,6 +30,11 @@ public class ConcurrentUtil {
 
     private static Logger log = LoggerFactory.getLogger(ConcurrentUtil.class);
 
+
+    private ConcurrentUtil() {
+        // hidden constructor
+    }
+
     public static void waitFor(CountDownLatch latch) {
         try {
             latch.await();

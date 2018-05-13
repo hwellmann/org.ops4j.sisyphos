@@ -42,7 +42,6 @@ public class JsonPathCheckBuilder<T> implements FindCheckBuilder<Response, T> {
     public T extract(Response response) {
         String json = response.readEntity(String.class);
         DocumentContext context = JsonPath.parse(json);
-        T extracted = context.read(jsonPath);
-        return extracted;
+        return context.read(jsonPath);
     }
 }

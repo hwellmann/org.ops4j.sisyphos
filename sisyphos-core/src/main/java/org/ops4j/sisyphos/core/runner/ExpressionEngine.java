@@ -82,7 +82,7 @@ public class ExpressionEngine {
             return new String(Files.readAllBytes(templateFile.toPath()), StandardCharsets.UTF_8);
         } catch (IOException exc) {
             log.error("Cannot load template {}", fileName, exc);
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(exc);
         }
     }
 }

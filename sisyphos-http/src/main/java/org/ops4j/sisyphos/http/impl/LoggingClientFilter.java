@@ -63,10 +63,8 @@ public class LoggingClientFilter implements ClientRequestFilter, ClientResponseF
         log.debug(sb.toString());
     }
 
-    private InputStream logInboundEntity(final StringBuilder b, InputStream stream, final Charset charset) throws IOException {
-        if (!stream.markSupported()) {
-            stream = new BufferedInputStream(stream);
-        }
+    private InputStream logInboundEntity(final StringBuilder b, InputStream is, final Charset charset) throws IOException {
+        InputStream stream = is.markSupported() ? is : new BufferedInputStream(is);
         stream.mark(maxEntitySize + 1);
         final byte[] entity = new byte[maxEntitySize + 1];
         final int entitySize = stream.read(entity);

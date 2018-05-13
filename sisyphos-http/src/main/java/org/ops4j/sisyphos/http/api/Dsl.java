@@ -25,6 +25,11 @@ import javax.ws.rs.core.Response;
  */
 public class Dsl {
 
+
+    private Dsl() {
+        // hidden constructor
+    }
+
     public static HttpMethodBuilder http(String name) {
         return new HttpMethodBuilder(name);
     }

@@ -37,23 +37,23 @@ public class UserFluxBuilder {
 
     public Flux<Session> build() {
         if (userBuilder instanceof AtOnceUserBuilder) {
-            return build((AtOnceUserBuilder) userBuilder);
+            return buildAtOnce();
         }
         if (userBuilder instanceof AtIntervalUserBuilder) {
-            return build((AtIntervalUserBuilder) userBuilder);
+            return buildAtInterval((AtIntervalUserBuilder) userBuilder);
         }
 
         throw new IllegalArgumentException(userBuilder.getClass().getName());
     }
 
-    private Flux<Session> build(AtIntervalUserBuilder atInterval) {
+    private Flux<Session> buildAtInterval(AtIntervalUserBuilder atInterval) {
         SessionFactory factory = SessionFactory.create();
         return Flux.range(0, userBuilder.getNumUsers())
             .delayElements(atInterval.getInterval(), Schedulers.parallel())
             .map(i -> factory.newSession(userBuilder.nextUserId()));
     }
 
-    private Flux<Session> build(AtOnceUserBuilder atOnce) {
+    private Flux<Session> buildAtOnce() {
         SessionFactory factory = SessionFactory.create();
         return Flux.range(0, userBuilder.getNumUsers()).map(i -> factory.newSession(userBuilder.nextUserId()));
     }

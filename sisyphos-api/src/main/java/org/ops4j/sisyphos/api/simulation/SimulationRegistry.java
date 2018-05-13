@@ -27,6 +27,11 @@ public class SimulationRegistry {
 
     private static Map<String, SimulationBuilder> simulationMap = HashMap.empty();
 
+
+    private SimulationRegistry() {
+        // hidden constructor
+    }
+
     public static void register(String name, SimulationBuilder simulation) {
         if (simulationMap.containsKey(name)) {
             throw new IllegalArgumentException(String.format("Simulation named '%s' already exists", name));

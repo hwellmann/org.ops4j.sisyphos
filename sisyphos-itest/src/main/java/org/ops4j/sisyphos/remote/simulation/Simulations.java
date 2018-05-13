@@ -39,21 +39,17 @@ import org.ops4j.sisyphos.http.api.HttpRequestBuilder;
 @ApplicationScoped
 public class Simulations {
 
-    private HttpConfiguration httpConfig;
-    private HttpRequestBuilder listPosts;
-    private HttpRequestBuilder createPost;
-
     public void defineSimulations(@Observes @Initialized(ApplicationScoped.class) Object event) {
-        httpConfig = httpConfig()
+        HttpConfiguration httpConfig = httpConfig()
             .baseUrl("https://jsonplaceholder.typicode.com")
             .acceptHeader(MediaType.APPLICATION_JSON)
             .contentTypeHeader(MediaType.APPLICATION_JSON);
 
-        listPosts = http("List all posts")
+        HttpRequestBuilder listPosts = http("List all posts")
             .get("posts")
             .check(status().is(200));
 
-        createPost = http("Create post")
+        HttpRequestBuilder createPost = http("Create post")
             .post("posts")
             .body(raw("{\"title\":\"New post\", \"body\": \"bla\", \"userId\": 17}"))
             .check(status().is(201));

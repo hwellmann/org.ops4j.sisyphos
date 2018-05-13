@@ -36,7 +36,7 @@ public interface FluxBuilder {
         return List.empty();
     }
 
-    default public Flux<Session> buildFlux(ScenarioContext context) {
+    default Flux<Session> buildFlux(ScenarioContext context) {
         FluxBuilderAdapter adapter = new FluxBuilderAdapter();
         return Flux.concat(actionBuilders().map(a -> adapter.adapt(a)).map(a -> a.buildFlux(context)).toList());
     }

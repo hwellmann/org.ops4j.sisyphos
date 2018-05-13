@@ -28,7 +28,7 @@ public interface SessionFactory {
 
     Session newSession(long userId);
 
-    public static SessionFactory create() {
+    static SessionFactory create() {
         return ServiceProviderFinder.loadUniqueServiceProvider(SessionFactory.class);
     }
 }

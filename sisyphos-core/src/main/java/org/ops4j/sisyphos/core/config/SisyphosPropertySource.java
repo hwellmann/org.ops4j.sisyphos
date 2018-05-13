@@ -44,8 +44,8 @@ public class SisyphosPropertySource extends BasePropertySource {
                 properties.put(key, PropertyValue.of(key, props.getProperty(key), "sisyphos.properties"));
             }
         }
-        catch (IOException e) {
-            throw new ConfigException("Error loading properties from sisyphos.properties");
+        catch (IOException exc) {
+            throw new ConfigException("Error loading properties from sisyphos.properties", exc);
         }
         return properties;
     }

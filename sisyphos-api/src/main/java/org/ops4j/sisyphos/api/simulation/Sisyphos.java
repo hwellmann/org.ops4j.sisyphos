@@ -42,6 +42,11 @@ import io.vavr.collection.List;
  */
 public class Sisyphos {
 
+
+    private Sisyphos() {
+        // hidden constructor
+    }
+
     public static SimulationBuilder simulation(String name) {
         SimulationBuilder simulation = new SimulationBuilder(name);
         SimulationRegistry.register(name, simulation);
