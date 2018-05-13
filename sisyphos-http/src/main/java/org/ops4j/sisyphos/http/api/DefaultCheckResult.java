@@ -15,15 +15,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ops4j.sisyphos.api.spi;
-
-import org.ops4j.sisyphos.api.simulation.SimulationBuilder;
+package org.ops4j.sisyphos.http.api;
 
 /**
  * @author Harald Wellmann
  *
  */
-public interface SimulationRunner {
+public class DefaultCheckResult implements CheckResult {
 
-    void runSimulation(SimulationBuilder simulation);
 }

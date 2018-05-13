@@ -15,14 +15,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ops4j.sisyphos.http;
-
-import org.ops4j.sisyphos.http.api.CheckResult;
+package org.ops4j.sisyphos.api.simulation;
 
 /**
  * @author Harald Wellmann
  *
  */
-public class DefaultCheckResult implements CheckResult {
+public interface SimulationRunner {
 
+    void runSimulation(SimulationBuilder simulation);
 }

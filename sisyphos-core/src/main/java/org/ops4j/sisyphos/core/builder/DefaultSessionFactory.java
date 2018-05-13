@@ -15,10 +15,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ops4j.sisyphos.core.session;
+package org.ops4j.sisyphos.core.builder;
 
 import org.ops4j.sisyphos.api.session.Session;
-import org.ops4j.sisyphos.core.builder.SessionFactory;
+import org.ops4j.sisyphos.core.session.SessionImpl;
 
 /**
  * @author Harald Wellmann

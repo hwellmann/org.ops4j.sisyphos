@@ -21,7 +21,6 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.StringDescription;
 import org.ops4j.sisyphos.api.session.Session;
-import org.ops4j.sisyphos.http.DefaultCheckResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

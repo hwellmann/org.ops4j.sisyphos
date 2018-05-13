@@ -1,1 +1,1 @@
-org.ops4j.sisyphos.core.session.DefaultSessionFactory
+org.ops4j.sisyphos.core.builder.DefaultSessionFactory

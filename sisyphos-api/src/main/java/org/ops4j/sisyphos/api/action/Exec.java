@@ -22,7 +22,6 @@ import java.util.function.Predicate;
 
 import org.ops4j.sisyphos.api.feed.FeedBuilder;
 import org.ops4j.sisyphos.api.session.Session;
-import org.ops4j.sisyphos.api.simulation.ScenarioBuilder;
 
 import io.vavr.collection.Iterator;
 import io.vavr.collection.LinkedHashMap;
@@ -40,10 +39,6 @@ public interface Exec<T> extends ActionBuilder {
 
     default T exec(ActionBuilder actionBuilder) {
         return chain(Iterator.of(actionBuilder));
-    }
-
-    default T exec(ScenarioBuilder scenarioBuilder) {
-        return chain(scenarioBuilder.actionBuilders().iterator());
     }
 
     default T chain(Iterator<ActionBuilder> newActionBuilders) {

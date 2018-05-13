@@ -24,7 +24,7 @@ import java.util.logging.Level;
 import org.ops4j.sisyphos.api.session.Session;
 import org.ops4j.sisyphos.api.simulation.ScenarioBuilder;
 import org.ops4j.sisyphos.api.simulation.SimulationBuilder;
-import org.ops4j.sisyphos.api.spi.SimulationRunner;
+import org.ops4j.sisyphos.api.simulation.SimulationRunner;
 import org.ops4j.sisyphos.api.user.UserBuilder;
 import org.ops4j.sisyphos.core.builder.FluxBuilderAdapter;
 import org.ops4j.sisyphos.core.builder.ScenarioContext;
