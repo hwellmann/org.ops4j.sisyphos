@@ -41,7 +41,7 @@ public class LoggingClientFilter implements ClientRequestFilter, ClientResponseF
 
     private static final String ENTITY_STREAM_PROPERTY = "EntityLoggingFilter.entityStream";
     private static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
-    private final int maxEntitySize = 1024 * 8;
+    private static final int MAX_ENTITY_SIZE = 1024 * 8;
 
 
     private static Logger log = LoggerFactory.getLogger(LoggingClientFilter.class);
@@ -65,11 +65,11 @@ public class LoggingClientFilter implements ClientRequestFilter, ClientResponseF
 
     private InputStream logInboundEntity(final StringBuilder b, InputStream is, final Charset charset) throws IOException {
         InputStream stream = is.markSupported() ? is : new BufferedInputStream(is);
-        stream.mark(maxEntitySize + 1);
-        final byte[] entity = new byte[maxEntitySize + 1];
+        stream.mark(MAX_ENTITY_SIZE + 1);
+        final byte[] entity = new byte[MAX_ENTITY_SIZE + 1];
         final int entitySize = stream.read(entity);
-        b.append(new String(entity, 0, Math.min(entitySize, maxEntitySize), charset));
-        if (entitySize > maxEntitySize) {
+        b.append(new String(entity, 0, Math.min(entitySize, MAX_ENTITY_SIZE), charset));
+        if (entitySize > MAX_ENTITY_SIZE) {
             b.append("...more...");
         }
         b.append('\n');
@@ -118,7 +118,7 @@ public class LoggingClientFilter implements ClientRequestFilter, ClientResponseF
             final byte[] entity = baos.toByteArray();
 
             sb.append(new String(entity, 0, entity.length, charset));
-            if (entity.length > maxEntitySize) {
+            if (entity.length > MAX_ENTITY_SIZE) {
                 sb.append("...more...");
             }
             sb.append('\n');
@@ -128,7 +128,7 @@ public class LoggingClientFilter implements ClientRequestFilter, ClientResponseF
 
         @Override
         public void write(final int i) throws IOException {
-            if (baos.size() <= maxEntitySize) {
+            if (baos.size() <= MAX_ENTITY_SIZE) {
                 baos.write(i);
             }
             out.write(i);

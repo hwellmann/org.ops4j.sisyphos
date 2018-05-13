@@ -29,11 +29,6 @@ public class BasicAuthenticationClientFilter implements ClientRequestFilter {
 
     private final String authHeader;
 
-    /**
-     *
-     * @param username
-     * @param password
-     */
     public BasicAuthenticationClientFilter(String username, String password) {
         authHeader = createHeader(username, password);
     }

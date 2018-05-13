@@ -48,8 +48,9 @@ public class StringToMessageAdapter implements Adapter<String, StatisticsMessage
                 return buildSimulationMessage(it);
             case "GROUP":
                 return buildGroupMessage(it);
+            default:
+                throw new IllegalArgumentException(s);
         }
-        throw new IllegalArgumentException(s);
     }
 
     private StatisticsMessage buildResponseMessage(Iterator<String> it) {

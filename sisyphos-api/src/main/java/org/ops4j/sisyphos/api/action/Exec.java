@@ -102,6 +102,7 @@ public interface Exec<T> extends ActionBuilder {
         return exec(new RandomSwitchBuilder(LinkedHashMap.of(w1, a1, w2, a2, w3, a3, w4, a4, w5, a5)));
     }
 
+    // CHECKSTYLE:SKIP
     default T randomSwitch(double w1, ActionBuilder a1, double w2, ActionBuilder a2, double w3, ActionBuilder a3, double w4, ActionBuilder a4, double w5, ActionBuilder a5, double w6, ActionBuilder a6) {
         return exec(new RandomSwitchBuilder(LinkedHashMap.of(w1, a1, w2, a2, w3, a3, w4, a4, w5, a5, w6, a6)));
     }

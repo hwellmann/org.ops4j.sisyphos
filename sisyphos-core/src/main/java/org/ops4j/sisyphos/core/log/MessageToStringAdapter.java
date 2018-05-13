@@ -77,6 +77,6 @@ public class MessageToStringAdapter implements Adapter<StatisticsMessage, String
     }
 
     private String emptyIfNull(String text) {
-        return (text == null)? "" : text;
+        return (text == null) ? "" : text;
     }
 }

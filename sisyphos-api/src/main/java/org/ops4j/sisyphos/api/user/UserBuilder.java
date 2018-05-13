@@ -25,9 +25,9 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public abstract class UserBuilder {
 
-    private int numUsers;
-
     private static AtomicLong userId = new AtomicLong();
+
+    private int numUsers;
 
     UserBuilder(int numUsers) {
         this.numUsers = numUsers;

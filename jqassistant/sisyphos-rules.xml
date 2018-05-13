@@ -1,0 +1,22 @@
+<jqa:jqassistant-rules xmlns:jqa="http://www.buschmais.com/jqassistant/core/analysis/rules/schema/v1.2">
+
+    <constraint id="sisyphos:ClassesMustBeLocatedInSisyphosPackage">
+        <description>All classes must be located under package "org.ops4j.sisyphos".</description>
+        <cypher><![CDATA[
+            MATCH
+                (package:Package)-[:CONTAINS]->(cls:Class)
+            WHERE
+                NOT package.fqn =~ "org\\.ops4j\\.sisyphos\\..*"
+            RETURN
+                cls AS ClassNotInSisyphosPackage
+        ]]></cypher>
+    </constraint>
+
+    <group id="default">
+        <includeConstraint refId="junit4:IgnoreWithoutMessage" />
+        <includeConstraint refId="sisyphos:ClassesMustBeLocatedInSisyphosPackage" />
+        <includeConstraint refId="dependency:PackageCycles" />
+    </group>
+
+</jqa:jqassistant-rules>
+

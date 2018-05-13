@@ -26,10 +26,6 @@ public class CsvFeedBuilder implements FeedBuilder<String> {
     private FeedStrategy strategy;
     private String fileName;
 
-    /**
-     * @param records
-     * @param strategy
-     */
     public CsvFeedBuilder(String fileName, FeedStrategy strategy) {
         this.strategy = strategy;
         this.fileName = fileName;

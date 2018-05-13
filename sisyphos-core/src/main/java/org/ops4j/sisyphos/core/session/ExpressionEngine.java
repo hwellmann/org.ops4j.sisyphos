@@ -79,7 +79,8 @@ public class ExpressionEngine {
         File templateFile = new File(templateDir, fileName);
         try {
             return new String(Files.readAllBytes(templateFile.toPath()), StandardCharsets.UTF_8);
-        } catch (IOException exc) {
+        }
+        catch (IOException exc) {
             log.error("Cannot load template {}", fileName, exc);
             throw new IllegalArgumentException(exc);
         }
