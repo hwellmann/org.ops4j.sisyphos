@@ -34,13 +34,11 @@ import org.ops4j.sisyphos.api.simulation.SimulationBuilder;
 import org.ops4j.sisyphos.api.simulation.SimulationRunner;
 import org.ops4j.sisyphos.api.user.UserBuilder;
 import org.ops4j.sisyphos.core.builder.UserFluxBuilder;
-import org.ops4j.sisyphos.core.common.ScenarioContext;
 import org.ops4j.sisyphos.core.config.ConfigurationFactory;
 import org.ops4j.sisyphos.core.log.LogSubscriber;
 import org.ops4j.sisyphos.core.message.SimulationMessage;
 import org.ops4j.sisyphos.core.message.StatisticsMessage;
 import org.ops4j.sisyphos.core.runner.ConcurrentUtil;
-import org.ops4j.sisyphos.core.runner.DefaultScenarioContext;
 import org.ops4j.sisyphos.core.session.ExtendedSession;
 import org.reactivestreams.Subscriber;
 import org.slf4j.Logger;
@@ -70,10 +68,10 @@ public class RemoteSimulationRunner implements SimulationRunner {
 
     private AtomicInteger workerIndex = new AtomicInteger();
 
-
     @PostConstruct
     public void init() {
-        this.client = new ResteasyClientBuilder().connectionPoolSize(NUM_CONNECTIONS).maxPooledPerRoute(NUM_CONNECTIONS).build();
+        this.client = new ResteasyClientBuilder().connectionPoolSize(NUM_CONNECTIONS)
+            .maxPooledPerRoute(NUM_CONNECTIONS).build();
         this.logSubscriber = new LogSubscriber();
         this.workerUris = ConfigurationFactory.configuration().getWorkerUri().split(",");
     }
@@ -93,28 +91,28 @@ public class RemoteSimulationRunner implements SimulationRunner {
 
         openMessages();
 
-        ScenarioContext context = new DefaultScenarioContext(messages, simulation.getProtocolConfiguration());
-
-        List<UserBuilder> userBuilders = simulation.getScenarioBuilders().flatMap(s -> s.getUserBuilders());
+        List<UserBuilder> userBuilders = simulation.getScenarioBuilders()
+            .flatMap(s -> s.getUserBuilders());
         int numUsers = userBuilders.map(u -> u.getNumUsers()).sum().intValue();
 
-        messages.next(new SimulationMessage(simulation.getName(), simulation.getId(), System.currentTimeMillis(),
-            simulation.getRunDescription(), simulation.getReportDir()));
+        messages.next(new SimulationMessage(simulation.getName(), simulation.getId(),
+            System.currentTimeMillis(), simulation.getRunDescription(), simulation.getReportDir()));
 
         CountDownLatch latch = new CountDownLatch(numUsers);
-        simulation.getScenarioBuilders().forEach(s -> runScenario(s, context, latch, simulation.getName()));
+        simulation.getScenarioBuilders().forEach(s -> runScenario(s, latch, simulation.getName()));
         ConcurrentUtil.waitFor(latch);
 
         closeMessages();
     }
 
-    private void runScenario(ScenarioBuilder scenarioBuilder, ScenarioContext context,
-        CountDownLatch latch, String simulationName) {
-        Flux<Session> users = Flux.concat(scenarioBuilder.getUserBuilders()
-                .map(UserFluxBuilder::new)
-                .map(UserFluxBuilder::build))
-            .map(session -> { ((ExtendedSession) session).setScenario(scenarioBuilder.getName()); return session; })
-            .subscribeOn(Schedulers.elastic())
+    private void runScenario(ScenarioBuilder scenarioBuilder, CountDownLatch latch,
+        String simulationName) {
+        Flux<Session> users = Flux.concat(
+            scenarioBuilder.getUserBuilders().map(UserFluxBuilder::new).map(UserFluxBuilder::build))
+            .map(session -> {
+                ((ExtendedSession) session).setScenario(scenarioBuilder.getName());
+                return session;
+            }).subscribeOn(Schedulers.elastic())
             .log(RemoteSimulationRunner.class.getName(), Level.FINE);
 
         Flux<Long> simulation = users
@@ -124,9 +122,9 @@ public class RemoteSimulationRunner implements SimulationRunner {
     }
 
     private Mono<Long> runSession(Session session, String simulationName, CountDownLatch latch) {
-        return nextWorker().runUser(messages, simulationName, session.getScenario(), session.getUserId())
-            .subscribeOn(Schedulers.elastic())
-            .doOnTerminate(() -> latch.countDown() );
+        return nextWorker()
+            .runUser(messages, simulationName, session.getScenario(), session.getUserId())
+            .subscribeOn(Schedulers.elastic()).doOnTerminate(() -> latch.countDown());
     }
 
     private SimulationWorker nextWorker() {
