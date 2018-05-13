@@ -28,7 +28,7 @@ import org.ops4j.sisyphos.api.feed.CsvFeedBuilder;
 import org.ops4j.sisyphos.api.feed.FeedStrategy;
 import org.ops4j.sisyphos.api.session.Action;
 import org.ops4j.sisyphos.api.session.Session;
-import org.ops4j.sisyphos.core.builder.ScenarioContext;
+import org.ops4j.sisyphos.core.common.ScenarioContext;
 import org.ops4j.sisyphos.core.feed.FeedSequenceBuilderAdapter;
 import org.ops4j.sisyphos.core.session.SessionImpl;
 import org.slf4j.Logger;

@@ -18,6 +18,7 @@
 package org.ops4j.sisyphos.core.builder;
 
 import org.ops4j.sisyphos.api.action.ActionBuilder;
+import org.ops4j.sisyphos.core.common.Adapter;
 
 public interface FluxBuilderAdapterSpi extends Adapter<ActionBuilder, FluxBuilder> {
 

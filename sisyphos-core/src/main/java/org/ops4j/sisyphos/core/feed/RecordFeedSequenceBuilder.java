@@ -20,7 +20,8 @@ package org.ops4j.sisyphos.core.feed;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.ops4j.sisyphos.api.feed.FeedStrategy;
-import org.ops4j.sisyphos.core.builder.ScenarioContext;
+import org.ops4j.sisyphos.core.common.FeedSequenceBuilder;
+import org.ops4j.sisyphos.core.common.ScenarioContext;
 
 import io.vavr.collection.Iterator;
 import io.vavr.collection.Map;

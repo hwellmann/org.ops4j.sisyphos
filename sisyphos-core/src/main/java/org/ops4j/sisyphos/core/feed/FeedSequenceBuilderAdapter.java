@@ -20,7 +20,8 @@ package org.ops4j.sisyphos.core.feed;
 import org.ops4j.sisyphos.api.feed.CsvFeedBuilder;
 import org.ops4j.sisyphos.api.feed.DirectFeedBuilder;
 import org.ops4j.sisyphos.api.feed.FeedBuilder;
-import org.ops4j.sisyphos.core.builder.Adapter;
+import org.ops4j.sisyphos.core.common.Adapter;
+import org.ops4j.sisyphos.core.common.FeedSequenceBuilder;
 
 public class FeedSequenceBuilderAdapter<F> implements Adapter<FeedBuilder<F>, FeedSequenceBuilder<F>> {
 

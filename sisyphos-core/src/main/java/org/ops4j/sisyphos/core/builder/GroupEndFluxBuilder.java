@@ -22,6 +22,7 @@ import java.util.List;
 import org.ops4j.sisyphos.api.action.Group;
 import org.ops4j.sisyphos.api.action.GroupEndActionBuilder;
 import org.ops4j.sisyphos.api.session.Session;
+import org.ops4j.sisyphos.core.common.ScenarioContext;
 import org.ops4j.sisyphos.core.message.GroupMessage;
 import org.ops4j.sisyphos.core.session.ExtendedSession;
 

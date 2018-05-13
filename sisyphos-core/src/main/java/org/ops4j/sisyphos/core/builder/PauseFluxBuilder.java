@@ -22,6 +22,7 @@ import java.util.Random;
 
 import org.ops4j.sisyphos.api.action.PauseBuilder;
 import org.ops4j.sisyphos.api.session.Session;
+import org.ops4j.sisyphos.core.common.ScenarioContext;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

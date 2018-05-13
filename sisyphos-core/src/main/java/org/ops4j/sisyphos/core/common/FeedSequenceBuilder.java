@@ -15,21 +15,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ops4j.sisyphos.core.builder;
+package org.ops4j.sisyphos.core.common;
 
-import org.ops4j.sisyphos.api.action.ProtocolConfiguration;
-import org.ops4j.sisyphos.core.message.StatisticsMessage;
-
-import reactor.core.publisher.FluxSink;
+import io.vavr.collection.IndexedSeq;
+import io.vavr.collection.Iterator;
+import io.vavr.collection.Map;
 
 /**
  * @author Harald Wellmann
  *
  */
-public interface ScenarioContext {
+public interface FeedSequenceBuilder<T> {
 
-    FluxSink<StatisticsMessage> messageSink();
-    String getDataPath();
-    <T extends ProtocolConfiguration> T getProtocolConfiguration(Class<T> klass);
-
+    IndexedSeq<Map<String, T>> generateRecords(ScenarioContext context);
+    Iterator<Map<String, T>> buildFeed(ScenarioContext context);
 }

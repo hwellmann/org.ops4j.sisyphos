@@ -19,6 +19,7 @@ package org.ops4j.sisyphos.core.builder;
 
 import org.ops4j.sisyphos.api.action.RepeatBuilder;
 import org.ops4j.sisyphos.api.session.Session;
+import org.ops4j.sisyphos.core.common.ScenarioContext;
 
 import reactor.core.publisher.Flux;
 import reactor.retry.Repeat;

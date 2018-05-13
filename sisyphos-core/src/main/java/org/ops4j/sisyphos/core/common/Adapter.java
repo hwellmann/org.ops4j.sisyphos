@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ops4j.sisyphos.core.builder;
+package org.ops4j.sisyphos.core.common;
 
 public interface Adapter<S, T> {
 

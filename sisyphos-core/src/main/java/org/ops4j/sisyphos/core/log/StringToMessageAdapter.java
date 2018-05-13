@@ -23,7 +23,7 @@ import java.util.List;
 
 import org.ops4j.sisyphos.api.session.Session;
 import org.ops4j.sisyphos.api.session.Status;
-import org.ops4j.sisyphos.core.builder.Adapter;
+import org.ops4j.sisyphos.core.common.Adapter;
 import org.ops4j.sisyphos.core.message.GroupMessage;
 import org.ops4j.sisyphos.core.message.RequestMessage;
 import org.ops4j.sisyphos.core.message.SessionEvent;

@@ -18,7 +18,7 @@
 package org.ops4j.sisyphos.core.feed;
 
 import org.ops4j.sisyphos.api.feed.DirectFeedBuilder;
-import org.ops4j.sisyphos.core.builder.ScenarioContext;
+import org.ops4j.sisyphos.core.common.ScenarioContext;
 
 import io.vavr.collection.IndexedSeq;
 import io.vavr.collection.Map;

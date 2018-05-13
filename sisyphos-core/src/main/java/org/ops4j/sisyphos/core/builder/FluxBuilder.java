@@ -20,6 +20,7 @@ package org.ops4j.sisyphos.core.builder;
 import org.ops4j.sisyphos.api.action.ActionBuilder;
 import org.ops4j.sisyphos.api.session.Action;
 import org.ops4j.sisyphos.api.session.Session;
+import org.ops4j.sisyphos.core.common.ScenarioContext;
 
 import io.vavr.collection.List;
 import reactor.core.publisher.Flux;

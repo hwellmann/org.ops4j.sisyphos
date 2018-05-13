@@ -18,7 +18,7 @@
 package org.ops4j.sisyphos.core.runner;
 
 import org.ops4j.sisyphos.api.action.ProtocolConfiguration;
-import org.ops4j.sisyphos.core.builder.ScenarioContext;
+import org.ops4j.sisyphos.core.common.ScenarioContext;
 import org.ops4j.sisyphos.core.config.ConfigurationFactory;
 import org.ops4j.sisyphos.core.message.StatisticsMessage;
 

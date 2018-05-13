@@ -20,6 +20,7 @@ package org.ops4j.sisyphos.core.builder;
 import org.ops4j.sisyphos.api.action.ConsumeActionBuilder;
 import org.ops4j.sisyphos.api.feed.FeedBuilder;
 import org.ops4j.sisyphos.api.session.Session;
+import org.ops4j.sisyphos.core.common.ScenarioContext;
 import org.ops4j.sisyphos.core.feed.FeedSequenceBuilderAdapter;
 
 import io.vavr.collection.HashMap;

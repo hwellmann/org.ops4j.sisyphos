@@ -29,7 +29,7 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.ops4j.sisyphos.api.feed.CsvFeedBuilder;
-import org.ops4j.sisyphos.core.builder.ScenarioContext;
+import org.ops4j.sisyphos.core.common.ScenarioContext;
 
 import io.vavr.collection.IndexedSeq;
 import io.vavr.collection.Iterator;
