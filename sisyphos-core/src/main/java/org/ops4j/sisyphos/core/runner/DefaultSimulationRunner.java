@@ -34,6 +34,7 @@ import org.ops4j.sisyphos.core.message.SessionEvent;
 import org.ops4j.sisyphos.core.message.SessionMessage;
 import org.ops4j.sisyphos.core.message.SimulationMessage;
 import org.ops4j.sisyphos.core.message.StatisticsMessage;
+import org.ops4j.sisyphos.core.session.ExtendedSession;
 import org.ops4j.sisyphos.core.session.SessionImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -134,7 +135,7 @@ public class DefaultSimulationRunner implements SimulationRunner {
      * @return
      */
     private void onSessionStart(String scenarioName, Session session) {
-        session.setScenario(scenarioName);
+        ((ExtendedSession) session).setScenario(scenarioName);
         messages.next(new SessionMessage(session, SessionEvent.START, System.currentTimeMillis()));
     }
 }

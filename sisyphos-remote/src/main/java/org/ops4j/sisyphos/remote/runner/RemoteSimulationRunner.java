@@ -41,6 +41,7 @@ import org.ops4j.sisyphos.core.message.SimulationMessage;
 import org.ops4j.sisyphos.core.message.StatisticsMessage;
 import org.ops4j.sisyphos.core.runner.ConcurrentUtil;
 import org.ops4j.sisyphos.core.runner.DefaultScenarioContext;
+import org.ops4j.sisyphos.core.session.ExtendedSession;
 import org.reactivestreams.Subscriber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -112,7 +113,7 @@ public class RemoteSimulationRunner implements SimulationRunner {
         Flux<Session> users = Flux.concat(scenarioBuilder.getUserBuilders()
                 .map(UserFluxBuilder::new)
                 .map(UserFluxBuilder::build))
-            .map(session -> { session.setScenario(scenarioBuilder.getName()); return session; })
+            .map(session -> { ((ExtendedSession) session).setScenario(scenarioBuilder.getName()); return session; })
             .subscribeOn(Schedulers.elastic())
             .log(RemoteSimulationRunner.class.getName(), Level.FINE);
 

@@ -30,6 +30,7 @@ import org.ops4j.sisyphos.core.message.SessionEvent;
 import org.ops4j.sisyphos.core.message.SessionMessage;
 import org.ops4j.sisyphos.core.message.SimulationMessage;
 import org.ops4j.sisyphos.core.message.StatisticsMessage;
+import org.ops4j.sisyphos.core.session.ExtendedSession;
 import org.ops4j.sisyphos.core.session.SessionImpl;
 
 public class StringToMessageAdapter implements Adapter<String, StatisticsMessage> {
@@ -70,7 +71,7 @@ public class StringToMessageAdapter implements Adapter<String, StatisticsMessage
         Session session = new SessionImpl(scenario, userId);
         SessionEvent event = SessionEvent.valueOf(it.next());
         long startTimestamp = Long.parseLong(it.next());
-        session.setStartDate(startTimestamp);
+        ((ExtendedSession) session).setStartDate(startTimestamp);
         long endTimestamp = Long.parseLong(it.next());
         return new SessionMessage(session, event, endTimestamp);
     }

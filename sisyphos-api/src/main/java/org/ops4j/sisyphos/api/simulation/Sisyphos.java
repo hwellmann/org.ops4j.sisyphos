@@ -40,7 +40,7 @@ import io.vavr.collection.List;
  * @author Harald Wellmann
  *
  */
-public class Sisyphos {
+public final class Sisyphos {
 
 
     private Sisyphos() {

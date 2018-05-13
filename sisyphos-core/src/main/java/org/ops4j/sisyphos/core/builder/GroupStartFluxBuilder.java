@@ -20,6 +20,7 @@ package org.ops4j.sisyphos.core.builder;
 import org.ops4j.sisyphos.api.action.GroupStartActionBuilder;
 import org.ops4j.sisyphos.api.session.Action;
 import org.ops4j.sisyphos.api.session.Session;
+import org.ops4j.sisyphos.core.session.ExtendedSession;
 
 import reactor.core.publisher.Flux;
 
@@ -38,7 +39,8 @@ public class GroupStartFluxBuilder implements FluxBuilder {
     }
 
     private Session startGroup(Session session) {
-        session.startGroup(groupStart.getGroupName());
+        ExtendedSession extSession = (ExtendedSession) session;
+        extSession.startGroup(groupStart.getGroupName());
         return session;
     }
 }

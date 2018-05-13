@@ -21,6 +21,7 @@ import org.ops4j.sisyphos.api.action.RequestActionBuilder;
 import org.ops4j.sisyphos.api.session.Action;
 import org.ops4j.sisyphos.api.session.Session;
 import org.ops4j.sisyphos.core.message.RequestMessage;
+import org.ops4j.sisyphos.core.session.ExtendedSession;
 
 import reactor.core.publisher.Flux;
 
@@ -48,12 +49,13 @@ public class RequestActionFluxBuilder implements FluxBuilder {
         long requestTimestamp = System.currentTimeMillis();
         action.execute(session);
 
+        ExtendedSession extSession = (ExtendedSession) session;
         long responseTimestamp = System.currentTimeMillis();
         long responseTime = responseTimestamp - requestTimestamp;
-        session.accumulateResponseTime(responseTime);
+        extSession.accumulateResponseTime(responseTime);
 
         RequestMessage msg = new RequestMessage(session.getScenario(), session.getUserId(),
-            session.getGroupHierarchy(), name, requestTimestamp, responseTimestamp, session.getStatus());
+            extSession.getGroupHierarchy(), name, requestTimestamp, responseTimestamp, session.getStatus());
         String message = session.getAttribute("_message", String.class);
         if (message != null) {
             msg.setMessage(message);

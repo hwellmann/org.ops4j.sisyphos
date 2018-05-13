@@ -23,7 +23,7 @@ import javax.ws.rs.core.Response;
  * @author Harald Wellmann
  *
  */
-public class Dsl {
+public final class Dsl {
 
 
     private Dsl() {

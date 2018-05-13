@@ -26,7 +26,7 @@ import org.ops4j.sisyphos.http.api.HttpConfiguration;
  * @author Harald Wellmann
  *
  */
-public class ClientConfiguration {
+public final class ClientConfiguration {
 
     private ClientConfiguration() {
         // hidden constructor

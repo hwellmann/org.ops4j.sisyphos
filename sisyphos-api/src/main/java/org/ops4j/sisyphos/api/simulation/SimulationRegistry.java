@@ -23,7 +23,7 @@ import io.vavr.collection.HashMap;
 import io.vavr.collection.Map;
 import io.vavr.control.Option;
 
-public class SimulationRegistry {
+public final class SimulationRegistry {
 
     private static Map<String, SimulationBuilder> simulationMap = HashMap.empty();
 

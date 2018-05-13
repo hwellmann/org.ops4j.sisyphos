@@ -34,7 +34,7 @@ import org.ops4j.sisyphos.core.runner.ExpressionEngine;
  * @author Harald Wellmann
  *
  */
-public class SessionImpl implements Session {
+public class SessionImpl implements ExtendedSession {
 
     private String scenario;
     private Map<String, Object> attributes;

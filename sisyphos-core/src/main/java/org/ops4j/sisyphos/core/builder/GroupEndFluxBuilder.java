@@ -23,6 +23,7 @@ import org.ops4j.sisyphos.api.action.Group;
 import org.ops4j.sisyphos.api.action.GroupEndActionBuilder;
 import org.ops4j.sisyphos.api.session.Session;
 import org.ops4j.sisyphos.core.message.GroupMessage;
+import org.ops4j.sisyphos.core.session.ExtendedSession;
 
 import reactor.core.publisher.Flux;
 
@@ -41,8 +42,9 @@ public class GroupEndFluxBuilder implements FluxBuilder {
     }
 
     private Session endGroup(Session session, ScenarioContext context) {
-        List<String> groups = session.getGroupHierarchy();
-        Group group = session.endGroup(groupEnd.getGroupName());
+        ExtendedSession extSession = (ExtendedSession) session;
+        List<String> groups = extSession.getGroupHierarchy();
+        Group group = extSession.endGroup(groupEnd.getGroupName());
         GroupMessage groupMessage = new GroupMessage(session.getScenario(), session.getUserId(),
             groups, group.getStartDate(), group.getEndDate(),
             group.getCumulatedResponseTime(), session.getStatus());

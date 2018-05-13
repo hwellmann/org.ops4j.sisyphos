@@ -15,31 +15,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ops4j.sisyphos.api.session;
+package org.ops4j.sisyphos.core.session;
 
-import java.util.Map;
+import java.util.List;
+
+import org.ops4j.sisyphos.api.action.Group;
+import org.ops4j.sisyphos.api.session.Session;
+import org.ops4j.sisyphos.api.session.Status;
 
 /**
  * @author Harald Wellmann
  *
  */
-public interface Session extends Comparable<Session> {
+public interface ExtendedSession extends Session {
 
-    String getScenario();
+    void setScenario(String scenario);
 
-    Long getUserId();
+    void setUserId(Long userId);
 
-    long getStartDate();
+    void setStartDate(long startDate);
 
-    Status getStatus();
+    void setStatus(Status status);
 
-    Session markAsFailed();
+    Group startGroup(String groupName);
+    Group endGroup(String groupName);
+    List<String> getGroupHierarchy();
+    void accumulateResponseTime(long responseTime);
 
-    void setAttribute(String key, Object value);
-
-    <T> void setAttributes(Map<String, T> attributes);
-
-    Object getAttribute(String key);
-
-    <T> T getAttribute(String key, Class<T> klass);
 }
