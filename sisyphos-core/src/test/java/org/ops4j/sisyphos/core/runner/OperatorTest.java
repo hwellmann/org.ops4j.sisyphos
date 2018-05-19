@@ -206,7 +206,7 @@ public class OperatorTest {
             .subscriberContext(ctx -> ctx.put("session", session));
 
         StepVerifier.create(fluxExt.reduce(session, this::doStep))
-            .expectNextMatches(s -> s.getAttribute("one", Integer.class).equals(1))
+            .expectNextMatches(s -> s.getAttribute("one").equals(1))
             .verifyComplete();
     }
 
@@ -223,7 +223,7 @@ public class OperatorTest {
             .subscriberContext(ctx -> ctx.put("session", session));
 
         StepVerifier.create(fluxExt.reduce(session, this::doStep))
-            .expectNextMatches(s -> s.getAttribute("two", Integer.class).equals(2))
+            .expectNextMatches(s -> s.getAttribute("two").equals(2))
             .verifyComplete();
     }
 
@@ -251,7 +251,7 @@ public class OperatorTest {
     }
 
     private Session incrementKey(Session session, String key) {
-        Integer red = session.getAttribute(key, Integer.class);
+        Integer red = session.getAttribute(key);
         if (red == null) {
             session.setAttribute(key, 1);
         }
@@ -280,7 +280,7 @@ public class OperatorTest {
             if (ses == null) {
                 return true;
             }
-            Integer times = ses.getAttribute("blue", Integer.class);
+            Integer times = ses.getAttribute("blue");
             if (times == null) {
                 return true;
             }
@@ -296,9 +296,9 @@ public class OperatorTest {
 
         StepVerifier.create(fluxExt.reduce(session, this::doStep))
         .expectNextMatches(s ->
-            s.getAttribute("red", Integer.class).equals(3) &&
-            s.getAttribute("green", Integer.class).equals(1) &&
-            s.getAttribute("blue", Integer.class).equals(3))
+            s.getAttribute("red").equals(3) &&
+            s.getAttribute("green").equals(1) &&
+            s.getAttribute("blue").equals(3))
         .verifyComplete();
     }
 
@@ -324,9 +324,9 @@ public class OperatorTest {
 
         StepVerifier.create(fluxExt.reduce(session, this::doStep))
         .expectNextMatches(s ->
-            s.getAttribute("red", Integer.class).equals(5) &&
-            s.getAttribute("green", Integer.class).equals(1) &&
-            s.getAttribute("blue", Integer.class).equals(5))
+            s.getAttribute("red").equals(5) &&
+            s.getAttribute("green").equals(1) &&
+            s.getAttribute("blue").equals(5))
         .verifyComplete();
     }
 
@@ -377,12 +377,12 @@ public class OperatorTest {
 
         StepVerifier.create(fluxExt)
             .expectNextMatches(s ->
-                s.getAttribute("red", Integer.class).equals(1) &&
-                s.getAttribute("numTries", Integer.class).equals(2))
+                s.getAttribute("red").equals(1) &&
+                s.getAttribute("numTries").equals(2))
             .expectNextMatches(s ->
-                s.getAttribute("red", Integer.class).equals(1) &&
-                s.getAttribute("green", Integer.class).equals(1) &&
-                s.getAttribute("numTries", Integer.class).equals(2))
+                s.getAttribute("red").equals(1) &&
+                s.getAttribute("green").equals(1) &&
+                s.getAttribute("numTries").equals(2))
             .verifyComplete();
     }
 
@@ -403,16 +403,16 @@ public class OperatorTest {
 
         StepVerifier.create(fluxExt)
             .expectNextMatches(s ->
-                s.getAttribute("red", Integer.class).equals(1) &&
-                s.getAttribute("numTries", Integer.class).equals(2))
+                s.getAttribute("red").equals(1) &&
+                s.getAttribute("numTries").equals(2))
             .expectNextMatches(s ->
-                s.getAttribute("red", Integer.class).equals(1) &&
-                s.getAttribute("green", Integer.class).equals(1) &&
-                s.getAttribute("numTries", Integer.class).equals(2))
+                s.getAttribute("red").equals(1) &&
+                s.getAttribute("green").equals(1) &&
+                s.getAttribute("numTries").equals(2))
             .expectNextMatches(s ->
-                s.getAttribute("red", Integer.class).equals(1) &&
-                s.getAttribute("green", Integer.class).equals(2) &&
-                s.getAttribute("numTries", Integer.class).equals(2))
+                s.getAttribute("red").equals(1) &&
+                s.getAttribute("green").equals(2) &&
+                s.getAttribute("numTries").equals(2))
             .verifyComplete();
     }
 }

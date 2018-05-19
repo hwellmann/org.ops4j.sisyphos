@@ -34,7 +34,7 @@ import org.ops4j.sisyphos.api.simulation.ScenarioBuilder;
 public class DslTest {
 
     private Session actionWithRetry(Session session) {
-        Integer numTries = session.getAttribute("numTries", Integer.class);
+        Integer numTries = session.getAttribute("numTries");
         if (numTries == null) {
             session.setAttribute("numTries", 1);
             throw new IllegalStateException("forced retry");

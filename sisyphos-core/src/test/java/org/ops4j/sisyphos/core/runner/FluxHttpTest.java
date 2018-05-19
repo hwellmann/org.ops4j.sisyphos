@@ -112,7 +112,7 @@ public class FluxHttpTest {
                 .doOnTerminate(() -> latch.countDown())
                 .map(a -> a.execute(session))
                 .onErrorReturn(new SessionImpl("<ERROR>"))
-                .last().doOnNext(s -> log.info("{}", s.getAttribute("login")));
+                .last().doOnNext(s -> log.info("{}", s.<String>getAttribute("login")));
 
         Mono<List<Session>> sessions = Flux.range(0, numSessions)
                 // .delayElements(Duration.ofMillis(10))

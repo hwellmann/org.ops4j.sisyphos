@@ -57,7 +57,7 @@ public class RequestActionFluxBuilder implements FluxBuilder {
 
         RequestMessage msg = new RequestMessage(session.getScenario(), session.getUserId(),
             extSession.getGroupHierarchy(), name, requestTimestamp, responseTimestamp, session.getStatus());
-        String message = session.getAttribute("_message", String.class);
+        String message = session.getAttribute("_message");
         if (message != null) {
             msg.setMessage(message);
         }

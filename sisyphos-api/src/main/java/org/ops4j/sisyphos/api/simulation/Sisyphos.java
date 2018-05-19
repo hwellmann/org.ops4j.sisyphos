@@ -87,8 +87,8 @@ public final class Sisyphos {
         return new RequestActionBuilder(name, action);
     }
 
-    public static Function<Session, String> attr(String key) {
-        return session -> session.getAttribute(key, String.class);
+    public static <T> Function<Session, T> attr(String key) {
+        return session -> session.getAttribute(key);
     }
 
 

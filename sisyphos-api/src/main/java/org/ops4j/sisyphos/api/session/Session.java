@@ -39,7 +39,5 @@ public interface Session extends Comparable<Session> {
 
     <T> void setAttributes(Map<String, T> attributes);
 
-    Object getAttribute(String key);
-
-    <T> T getAttribute(String key, Class<T> klass);
+    <T> T getAttribute(String key);
 }

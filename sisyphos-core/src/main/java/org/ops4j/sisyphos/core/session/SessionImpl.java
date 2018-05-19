@@ -124,18 +124,14 @@ public class SessionImpl implements ExtendedSession {
         engine.setValue(key, value);
     }
 
-    @Override
-    public Object getAttribute(String key) {
-        return attributes.get(key);
-    }
-
     public ExpressionEngine getEngine() {
         return engine;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public <T> T getAttribute(String key, Class<T> klass) {
-        return klass.cast(attributes.get(key));
+    public <T> T getAttribute(String key) {
+        return (T) attributes.get(key);
     }
 
     @Override
