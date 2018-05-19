@@ -22,6 +22,8 @@ import javax.ws.rs.client.Entity;
 import org.ops4j.sisyphos.api.session.Session;
 
 /**
+ * Represents a body entity as a literal string.
+ *
  * @author Harald Wellmann
  *
  */

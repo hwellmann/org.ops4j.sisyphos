@@ -18,13 +18,27 @@
 package org.ops4j.sisyphos.http.api;
 
 /**
- * @author Harald Wellmann
+ * Interface to be implemented by all check builders.
  *
+ * @param <R>
+ *            response type
+ * @param <T>
+ *            type of extracted value to be checked
+ *
+ * @author Harald Wellmann
  */
 public interface CheckBuilder<R, T> {
 
+    /**
+     * Saves the value extracted by the current check as a session attribute with the given key.
+     * @param key session key
+     * @return this builder
+     */
     CheckBuilder<R, T> saveAs(String key);
 
+    /**
+     * Builds a check.
+     * @return check
+     */
     Check<R, T> build();
-
 }

@@ -22,11 +22,26 @@ import javax.ws.rs.client.Entity;
 import org.ops4j.sisyphos.api.session.Session;
 
 /**
+ * Builder for body entity of an HTTP request.
+ *
+ * @param <T>
+ *            Java type of entity representation (not to be confused with the HTTP media type)
+ *
  * @author Harald Wellmann
  *
  */
 public interface HttpBody<T> {
 
-    Entity<T> toEntity(Session session, String contentType);
+    /**
+     * Builds the body entity for the current HTTP request, possibly interpolating values from the
+     * current session.
+     *
+     * @param session
+     *            current session
+     * @param mediaType
+     *            entity media type
+     * @return body entity
+     */
+    Entity<T> toEntity(Session session, String mediaType);
 
 }

@@ -25,6 +25,8 @@ import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 
 /**
+ * Default implementation of {@link ValidatorCheckBuilder}.
+ *
  * @author Harald Wellmann
  *
  */

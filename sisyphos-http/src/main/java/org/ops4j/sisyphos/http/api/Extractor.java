@@ -20,6 +20,13 @@ package org.ops4j.sisyphos.http.api;
 import java.util.function.Function;
 
 /**
+ * Function extracting a value of a given type from a response.
+ *
+ * @param <R>
+ *            reponse type
+ * @param <T>
+ *            value type
+ *
  * @author Harald Wellmann
  *
  */

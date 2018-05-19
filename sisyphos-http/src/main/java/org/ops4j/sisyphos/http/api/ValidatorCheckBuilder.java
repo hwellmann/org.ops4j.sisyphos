@@ -18,17 +18,54 @@
 package org.ops4j.sisyphos.http.api;
 
 /**
+ * Builder used in fluent syntax for checks.
+ *
+ * @param <R>
+ *            response type
+ * @param <T>
+ *            type of extracted value to be checked
+ *
  * @author Harald Wellmann
  *
  */
 public interface ValidatorCheckBuilder<R, T> {
 
+    /**
+     * Checks that the extracted value is equal to the expected value.
+     *
+     * @param expected
+     *            expected value
+     * @return builder
+     */
     CheckBuilder<R, T> is(T expected);
-    CheckBuilder<R, T> isNot(T expected);
 
+    /**
+     * Checks that the extracted value is not equal to the expected value.
+     *
+     * @param unexpected
+     *            unexpected value
+     * @return builder
+     */
+    CheckBuilder<R, T> isNot(T unexpected);
+
+    /**
+     * Checks that the extracted value is equal to one of the accepted values.
+     *
+     * @param expected
+     *            list of accepted values
+     * @return builder
+     */
     @SuppressWarnings("unchecked")
     CheckBuilder<R, T> in(T... expected);
 
+    /**
+     * Defines the attribute name under which the extracted value will be stored in the current
+     * session.
+     *
+     * @param key
+     *            attribute name
+     * @return builder
+     */
     CheckBuilder<R, T> saveAs(String key);
 
 }

@@ -23,15 +23,22 @@ import javax.ws.rs.client.ClientBuilder;
 import org.ops4j.sisyphos.http.api.HttpConfiguration;
 
 /**
+ * Builds a configured HTTP client for executing HTTP requests.
+ *
  * @author Harald Wellmann
  *
  */
-public final class ClientConfiguration {
+public final class HttpClientBuilder {
 
-    private ClientConfiguration() {
+    private HttpClientBuilder() {
         // hidden constructor
     }
 
+    /**
+     * Creates an HTTP client with the given configuration.
+     * @param httpConfig HTTP configuration
+     * @return HTTP client, to be closed by the caller
+     */
     public static Client client(HttpConfiguration httpConfig) {
 
         Client client = ClientBuilder.newClient()

@@ -31,6 +31,8 @@ import org.ops4j.sisyphos.api.session.Session;
 import io.vavr.collection.List;
 
 /**
+ * Adds additional request information or response checks to the HTTP request under construction.
+ *
  * @author Harald Wellmann
  *
  */
@@ -54,65 +56,144 @@ public class HttpRequestBuilder implements ActionBuilder {
         this.checkBuilders = List.empty();
     }
 
+    /**
+     * Adds a query parameter with the given name and value.
+     *
+     * @param name
+     *            parameter name
+     * @param value
+     *            parameter value
+     * @return this builder
+     */
     public HttpRequestBuilder queryParam(String name, String value) {
         uriBuilder.queryParam(name, value);
         return this;
     }
 
+    /**
+     * Adds a form parameter with the given name and value.
+     *
+     * @param name
+     *            parameter name
+     * @param value
+     *            parameter value
+     * @return this builder
+     */
     public HttpRequestBuilder formParam(String name, String value) {
         form.param(name, value);
         return this;
     }
 
+    /**
+     * Adds a header with the given name and value.
+     *
+     * @param name
+     *            header name
+     * @param value
+     *            header value
+     * @return this builder
+     */
     public HttpRequestBuilder header(String name, String value) {
         headers.add(name, value);
         return this;
     }
 
+    /**
+     * Adds a header with the given name and value extracted from the current session by the given
+     * function.
+     *
+     * @param name
+     *            header name
+     * @param attr
+     *            string-valued session function
+     * @return this builder
+     */
     public HttpRequestBuilder header(String name, Function<Session, String> attr) {
         headers.add(name, attr);
         return this;
     }
 
+    /**
+     * Adds a string-valued body entity to the request.
+     * @param body body definition
+     * @return this builder
+     */
     public HttpRequestBuilder body(HttpBody<String> body) {
         this.body = body;
         return this;
     }
 
+    /**
+     * Adds the given response checks to the request.
+     * @param checks list of response checks
+     * @return this builder
+     */
     @SafeVarargs
     public final HttpRequestBuilder check(CheckBuilder<Response, ?>... checks) {
         checkBuilders = checkBuilders.appendAll(List.of(checks));
         return this;
     }
 
+    /**
+     * Gets the HTTP method name.
+     * @return method name
+     */
     public String getMethodName() {
         return methodName;
     }
 
+    /**
+     * Gets the HTTP headers.
+     * @return multivalued header map
+     */
     public MultivaluedMap<String, Object> getHeaders() {
         return headers;
     }
 
+    /**
+     * Gets the URI builder for this request.
+     * @return URI builder
+     */
     public UriBuilder getUriBuilder() {
         return uriBuilder;
     }
 
+    /**
+     * Gets the form entity for this request.
+     * @return form entity, or null, if no form is defined
+     */
     public Form getForm() {
         return form;
     }
 
+    /**
+     * Gets the checks to be applied to the response.
+     * @return list of check builders
+     */
     public List<CheckBuilder<Response, ?>> getCheckBuilders() {
         return checkBuilders;
     }
 
+    /**
+     * Gets the body entity.
+     * @return body entity
+     */
     public HttpBody<String> getBody() {
         return body;
     }
 
+    /**
+     * Gets the request name to be used in reports.
+     * @return request name
+     */
     public String getRequestName() {
         return requestName;
     }
 
+    /**
+     * Gets the (relative) URL of this request.
+     * @return URL
+     */
     public String getUrl() {
         return url;
     }

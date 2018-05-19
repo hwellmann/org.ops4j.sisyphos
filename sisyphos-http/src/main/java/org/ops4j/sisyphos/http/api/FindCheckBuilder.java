@@ -18,11 +18,22 @@
 package org.ops4j.sisyphos.http.api;
 
 /**
- * @author Harald Wellmann
+ * Interface for extractor builders in fluent syntax.
  *
+ * @param <R>
+ *            response type
+ * @param <T>
+ *            type of extracted value to be checked
+ *
+ * @author Harald Wellmann
  */
 public interface FindCheckBuilder<R, T> {
 
+    /**
+     * Extracts value(s) from the current reponse.
+     *
+     * @return builder for validations
+     */
     ValidatorCheckBuilder<R, T> find();
 
 }

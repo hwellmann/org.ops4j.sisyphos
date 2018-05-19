@@ -21,10 +21,10 @@ import static org.ops4j.sisyphos.api.simulation.Sisyphos.atInterval;
 import static org.ops4j.sisyphos.api.simulation.Sisyphos.exec;
 import static org.ops4j.sisyphos.api.simulation.Sisyphos.scenario;
 import static org.ops4j.sisyphos.api.simulation.Sisyphos.simulation;
-import static org.ops4j.sisyphos.http.api.Dsl.http;
-import static org.ops4j.sisyphos.http.api.Dsl.httpConfig;
-import static org.ops4j.sisyphos.http.api.Dsl.raw;
-import static org.ops4j.sisyphos.http.api.Dsl.status;
+import static org.ops4j.sisyphos.http.api.SisyphosHttp.http;
+import static org.ops4j.sisyphos.http.api.SisyphosHttp.httpConfig;
+import static org.ops4j.sisyphos.http.api.SisyphosHttp.raw;
+import static org.ops4j.sisyphos.http.api.SisyphosHttp.status;
 
 import java.time.Duration;
 

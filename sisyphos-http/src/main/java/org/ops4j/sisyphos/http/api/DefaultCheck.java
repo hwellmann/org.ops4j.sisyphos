@@ -58,7 +58,7 @@ public class DefaultCheck<R, T> implements Check<R, T> {
     }
 
     @Override
-    public CheckResult check(R response, Session session) {
+    public void check(R response, Session session) {
         T actual = extractor().apply(response);
         if (!validator().matches(actual)) {
             logError(session, actual);
@@ -66,7 +66,6 @@ public class DefaultCheck<R, T> implements Check<R, T> {
         if (saveAs() != null) {
             session.setAttribute(saveAs(), actual);
         }
-        return new DefaultCheckResult();
     }
 
     private void logError(Session session, T actual) {

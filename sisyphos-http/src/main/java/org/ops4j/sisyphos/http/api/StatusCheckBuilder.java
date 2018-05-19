@@ -20,6 +20,8 @@ package org.ops4j.sisyphos.http.api;
 import javax.ws.rs.core.Response;
 
 /**
+ * A check builder which extracts the HTTP status code from a response.
+ *
  * @author Harald Wellmann
  *
  */
@@ -29,7 +31,7 @@ public class StatusCheckBuilder extends DefaultValidatorCheckBuilder<Response, I
         super(StatusCheckBuilder::extract);
     }
 
-    public static Integer extract(Response response) {
+    private static Integer extract(Response response) {
         return response.getStatus();
     }
 }

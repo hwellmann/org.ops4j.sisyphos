@@ -45,6 +45,12 @@ import org.ops4j.sisyphos.http.api.HttpRequestBuilder;
 import io.vavr.collection.List;
 import reactor.core.publisher.Flux;
 
+/**
+ * Builds a flux representing an HTTP request to be executed on a session.
+ *
+ * @author Harald Wellmann
+ *
+ */
 public class HttpRequestFluxBuilder implements FluxBuilder {
 
 
@@ -65,7 +71,7 @@ public class HttpRequestFluxBuilder implements FluxBuilder {
     }
 
     public Session execute(HttpConfiguration httpConfig, Session session) {
-        Client client = ClientConfiguration.client(httpConfig);
+        Client client = HttpClientBuilder.client(httpConfig);
         Builder request = client.target(buildUri(httpConfig, session)).request(accept(httpConfig));
         httpConfig.getAcceptCharsetHeader().map(h -> addHeader(request, session, HttpHeaders.ACCEPT_CHARSET, h));
         httpConfig.getAcceptEncodingHeader().map(h -> addHeader(request, session, HttpHeaders.ACCEPT_ENCODING, h));
@@ -74,7 +80,7 @@ public class HttpRequestFluxBuilder implements FluxBuilder {
         addHeaders(request, session);
 
         Response response = request.build(httpRequestBuilder.getMethodName(), bodyEntity(httpConfig, session)).invoke();
-        checks.map(c -> c.check(response, session));
+        checks.forEach(c -> c.check(response, session));
         client.close();
         return session;
     }

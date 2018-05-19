@@ -22,6 +22,13 @@ import org.ops4j.sisyphos.core.builder.FluxBuilder;
 import org.ops4j.sisyphos.core.builder.FluxBuilderAdapterSpi;
 import org.ops4j.sisyphos.http.api.HttpRequestBuilder;
 
+/**
+ * Adapts action builders to flux builders for all actions contributed by the {@code sisyphos-http}
+ * module.
+ *
+ * @author Harald Wellmann
+ *
+ */
 public class HttpFluxBuilderAdapter implements FluxBuilderAdapterSpi {
 
     @Override

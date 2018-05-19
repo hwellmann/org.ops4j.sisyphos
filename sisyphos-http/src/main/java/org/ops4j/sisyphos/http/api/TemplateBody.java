@@ -24,6 +24,11 @@ import org.ops4j.sisyphos.core.session.ExpressionEngine;
 import org.ops4j.sisyphos.core.session.SessionImpl;
 
 /**
+ * Builder for body entity of an HTTP request, created from a template file.
+ *
+ * @param <T>
+ *            Java type of entity representation (not to be confused with the HTTP media type)
+ *
  * @author Harald Wellmann
  *
  */
@@ -31,6 +36,14 @@ public class TemplateBody implements HttpBody<String> {
 
     private String path;
 
+    /**
+     * Creates a body from a template file with the given path.
+     * <p>
+     * The path is relative to the template directory defined in configuration.
+     *
+     * @param path
+     *            relative template path
+     */
     public TemplateBody(String path) {
         this.path = path;
     }

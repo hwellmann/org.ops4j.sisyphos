@@ -21,13 +21,48 @@ import org.hamcrest.Matcher;
 import org.ops4j.sisyphos.api.session.Session;
 
 /**
+ * Interface to be implemented by all response checks.
+ *
+ * @param <R>
+ *            response type
+ * @param <T>
+ *            type of extracted value to be checked
+ *
  * @author Harald Wellmann
  *
  */
 public interface Check<R, T> {
 
+    /**
+     * Gets the value extractor for this check.
+     *
+     * @return extractor
+     */
     Extractor<R, T> extractor();
+
+    /**
+     * Gets a validator for the extracted value.
+     *
+     * @return validator
+     */
     Matcher<T> validator();
+
+    /**
+     * Gets the attribute name under which the extracted value will be saved in the current session.
+     *
+     * @return attribute name
+     */
     String saveAs();
-    CheckResult check(R response, Session session);
+
+    /**
+     * Applies this check to the given response and the given session.
+     * <p>
+     * The session is marked as failed if the check fails.
+     *
+     * @param response
+     *            current response
+     * @param session
+     *            current session
+     */
+    void check(R response, Session session);
 }

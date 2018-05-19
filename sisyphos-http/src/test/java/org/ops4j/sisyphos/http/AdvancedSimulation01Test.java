@@ -21,8 +21,8 @@ import static org.ops4j.sisyphos.api.simulation.Sisyphos.atOnce;
 import static org.ops4j.sisyphos.api.simulation.Sisyphos.exec;
 import static org.ops4j.sisyphos.api.simulation.Sisyphos.scenario;
 import static org.ops4j.sisyphos.api.simulation.Sisyphos.simulation;
-import static org.ops4j.sisyphos.http.api.Dsl.http;
-import static org.ops4j.sisyphos.http.api.Dsl.httpConfig;
+import static org.ops4j.sisyphos.http.api.SisyphosHttp.http;
+import static org.ops4j.sisyphos.http.api.SisyphosHttp.httpConfig;
 
 import java.time.Duration;
 

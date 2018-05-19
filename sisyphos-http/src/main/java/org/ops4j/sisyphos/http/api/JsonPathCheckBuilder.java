@@ -23,6 +23,8 @@ import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 
 /**
+ * Builder for JSON path checks.
+ *
  * @author Harald Wellmann
  *
  */

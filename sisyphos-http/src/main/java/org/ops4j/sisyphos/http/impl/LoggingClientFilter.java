@@ -37,15 +37,23 @@ import javax.ws.rs.ext.WriterInterceptorContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class LoggingClientFilter implements ClientRequestFilter, ClientResponseFilter, WriterInterceptor {
+/**
+ * A combined filter and interceptor which logs HTTP requests and responses.
+ * <p>
+ * The log output includes request method and URI, request and respose headers, and request and
+ * response bodies, truncated after 8 KB.
+ *
+ * @author Harald Wellmann
+ *
+ */
+public class LoggingClientFilter
+    implements ClientRequestFilter, ClientResponseFilter, WriterInterceptor {
 
-    private static final String ENTITY_STREAM_PROPERTY = "EntityLoggingFilter.entityStream";
+    private static final String ENTITY_STREAM_PROPERTY = "LoggingClientFilter.entityStream";
     private static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
-    private static final int MAX_ENTITY_SIZE = 1024 * 8;
-
+    private static final int MAX_ENTITY_SIZE = 8 * 1024;
 
     private static Logger log = LoggerFactory.getLogger(LoggingClientFilter.class);
-
 
     @Override
     public void filter(ClientRequestContext requestContext) throws IOException {
@@ -54,20 +62,22 @@ public class LoggingClientFilter implements ClientRequestFilter, ClientResponseF
             log.debug(">> {} = {}", header, requestContext.getHeaderString(header));
         }
         if (requestContext.hasEntity()) {
-            final OutputStream stream = new LoggingStream(requestContext.getEntityStream());
+            OutputStream stream = new CopyingStream(requestContext.getEntityStream());
             requestContext.setEntityStream(stream);
             requestContext.setProperty(ENTITY_STREAM_PROPERTY, stream);
         }
     }
+
     private void log(StringBuilder sb) {
         log.debug(sb.toString());
     }
 
-    private InputStream logInboundEntity(final StringBuilder b, InputStream is, final Charset charset) throws IOException {
+    private InputStream logInboundEntity(StringBuilder b, InputStream is,
+        final Charset charset) throws IOException {
         InputStream stream = is.markSupported() ? is : new BufferedInputStream(is);
-        stream.mark(MAX_ENTITY_SIZE + 1);
-        final byte[] entity = new byte[MAX_ENTITY_SIZE + 1];
-        final int entitySize = stream.read(entity);
+        stream.mark(MAX_ENTITY_SIZE);
+        byte[] entity = new byte[MAX_ENTITY_SIZE];
+        int entitySize = stream.read(entity);
         b.append(new String(entity, 0, Math.min(entitySize, MAX_ENTITY_SIZE), charset));
         if (entitySize > MAX_ENTITY_SIZE) {
             b.append("...more...");
@@ -77,18 +87,17 @@ public class LoggingClientFilter implements ClientRequestFilter, ClientResponseF
         return stream;
     }
 
-
     @Override
-    public void filter(ClientRequestContext requestContext,
-            ClientResponseContext responseContext) throws IOException {
+    public void filter(ClientRequestContext requestContext, ClientResponseContext responseContext)
+        throws IOException {
         log.debug("<< Response");
         for (String header : responseContext.getHeaders().keySet()) {
             log.debug("<< {} = {}", header, responseContext.getHeaderString(header));
         }
-        final StringBuilder sb = new StringBuilder("");
+        StringBuilder sb = new StringBuilder("");
         if (responseContext.hasEntity()) {
-            responseContext.setEntityStream(logInboundEntity(sb, responseContext.getEntityStream(),
-                    DEFAULT_CHARSET));
+            responseContext.setEntityStream(
+                logInboundEntity(sb, responseContext.getEntityStream(), DEFAULT_CHARSET));
             log(sb);
         }
 
@@ -96,26 +105,46 @@ public class LoggingClientFilter implements ClientRequestFilter, ClientResponseF
 
     @Override
     public void aroundWriteTo(WriterInterceptorContext context)
-            throws IOException, WebApplicationException {
-        final LoggingStream stream = (LoggingStream) context.getProperty(ENTITY_STREAM_PROPERTY);
+        throws IOException, WebApplicationException {
+        CopyingStream stream = (CopyingStream) context.getProperty(ENTITY_STREAM_PROPERTY);
         context.proceed();
         if (stream != null) {
             log(stream.getStringBuilder(DEFAULT_CHARSET));
         }
     }
 
-    private class LoggingStream extends FilterOutputStream {
+    /**
+     * Wraps an output stream, copying all written bytes up to a given maximum size to an internal
+     * buffer.
+     *
+     * @author Harald Wellmann
+     *
+     */
+    private static class CopyingStream extends FilterOutputStream {
 
-        private final StringBuilder sb = new StringBuilder();
-        private final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        private StringBuilder sb = new StringBuilder();
+        private ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-        LoggingStream(OutputStream out) {
+        /**
+         * Creates a copying stream wrapping the given stream.
+         *
+         * @param out
+         *            stream to be wrapped
+         */
+        CopyingStream(OutputStream out) {
             super(out);
         }
 
+        /**
+         * Gets a string builder using the given character set to convert the buffered bytes to a
+         * string.
+         *
+         * @param charset
+         *            character set for buffered bytes
+         * @return string builder
+         */
         StringBuilder getStringBuilder(Charset charset) {
-            // write entity to the builder
-            final byte[] entity = baos.toByteArray();
+            byte[] entity = baos.toByteArray();
 
             sb.append(new String(entity, 0, entity.length, charset));
             if (entity.length > MAX_ENTITY_SIZE) {
@@ -127,8 +156,8 @@ public class LoggingClientFilter implements ClientRequestFilter, ClientResponseF
         }
 
         @Override
-        public void write(final int i) throws IOException {
-            if (baos.size() <= MAX_ENTITY_SIZE) {
+        public void write(int i) throws IOException {
+            if (baos.size() < MAX_ENTITY_SIZE) {
                 baos.write(i);
             }
             out.write(i);

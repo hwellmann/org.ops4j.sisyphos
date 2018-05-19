@@ -25,10 +25,21 @@ import javax.ws.rs.client.ClientRequestContext;
 import javax.ws.rs.client.ClientRequestFilter;
 import javax.ws.rs.core.HttpHeaders;
 
+/**
+ * Request filter adding a Basic authentication header.
+ *
+ * @author Harald Wellmann
+ *
+ */
 public class BasicAuthenticationClientFilter implements ClientRequestFilter {
 
     private final String authHeader;
 
+    /**
+     * Creates a basic authentication filter with the given credentials.
+     * @param username username
+     * @param password password
+     */
     public BasicAuthenticationClientFilter(String username, String password) {
         authHeader = createHeader(username, password);
     }
@@ -43,5 +54,4 @@ public class BasicAuthenticationClientFilter implements ClientRequestFilter {
         buf.append(':').append(password);
         return "Basic " + Base64.getEncoder().encodeToString(buf.toString().getBytes(StandardCharsets.UTF_8));
     }
-
 }

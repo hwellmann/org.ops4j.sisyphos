@@ -20,6 +20,8 @@ package org.ops4j.sisyphos.http.api;
 import org.hamcrest.Matcher;
 
 /**
+ * Default implementation of {@link CheckBuilder}.
+ *
  * @author Harald Wellmann
  *
  */
