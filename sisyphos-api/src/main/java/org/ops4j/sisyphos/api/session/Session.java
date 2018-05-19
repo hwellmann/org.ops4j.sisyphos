@@ -59,8 +59,6 @@ public interface Session extends Comparable<Session> {
 
     /**
      * Marks the session as failed.
-     *
-     * @return
      */
     void markAsFailed();
 
@@ -82,8 +80,6 @@ public interface Session extends Comparable<Session> {
      *
      * @param attributes
      *            map of attributes
-     * @param value
-     *            attribute value
      * @param <T>
      *            attribute value type
      */
@@ -91,7 +87,11 @@ public interface Session extends Comparable<Session> {
 
     /**
      * Gets the attibute value for the given attribute name.
-     * @param key attribute name
+     *
+     * @param key
+     *            attribute name
+     * @param <T>
+     *            attribute value type
      * @return attribute value or null
      */
     <T> T getAttribute(String key);

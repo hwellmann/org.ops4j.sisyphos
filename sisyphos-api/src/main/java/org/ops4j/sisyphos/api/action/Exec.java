@@ -172,9 +172,9 @@ public interface Exec<T> extends ActionBuilder {
     /**
      * Pauses for a random duration contained in the given interval.
      *
-     * @param minDuration
+     * @param minSeconds
      *            minimum duration in seconds
-     * @param maxDuration
+     * @param maxSeconds
      *            maximum duration in seconds
      * @return builder
      */
@@ -186,7 +186,7 @@ public interface Exec<T> extends ActionBuilder {
     /**
      * Pauses for the given duration.
      *
-     * @param duration
+     * @param seconds
      *            duration in seconds
      * @return builder
      */
@@ -338,11 +338,11 @@ public interface Exec<T> extends ActionBuilder {
      * @param w5
      *            weight of fifth action
      * @param a5
-     *            sixth action
-     * @param w5
-     *            weight of sixth action
-     * @param a5
      *            fifth action
+     * @param w6
+     *            weight of sixth action
+     * @param a6
+     *            sixth action
      * @return builder
      */
     // CHECKSTYLE:SKIP
@@ -378,6 +378,7 @@ public interface Exec<T> extends ActionBuilder {
     /**
      * Consumes a map of attributes from the given feed and places them in the current session.
      * @param feedBuilder feed builder
+     * @param <F> type of feed value
      * @return builder
      */
     default <F> T consume(FeedBuilder<F> feedBuilder) {

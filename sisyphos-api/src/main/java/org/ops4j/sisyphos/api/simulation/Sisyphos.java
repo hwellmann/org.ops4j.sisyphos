@@ -127,6 +127,10 @@ public final class Sisyphos {
      *
      * @param propertyName
      *            attribute key under which the feed value will be stored in the session.
+     * @param values
+     *            list of values
+     * @param <F>
+     *            type of feed values
      * @return feed builder
      */
     @SafeVarargs
@@ -170,7 +174,7 @@ public final class Sisyphos {
      *            request name
      * @param action
      *            action executed for the request
-     * @return
+     * @return builder
      */
     public static RequestActionBuilder request(String name, Action action) {
         return new RequestActionBuilder(name, action);
@@ -181,9 +185,11 @@ public final class Sisyphos {
      *
      * @param key
      *            attribute name
+     * @param <V>
+     *            type of attribute value
      * @return function returning attribute value for given name
      */
-    public static <T> Function<Session, T> attr(String key) {
+    public static <V> Function<Session, V> attr(String key) {
         return session -> session.getAttribute(key);
     }
 
@@ -200,10 +206,12 @@ public final class Sisyphos {
 
     /**
      * Creates the given number of users which will start a session each. The first session is
-     * started immediately, each subsequent action is started after the given interval.
+     * started immediately, each subsequent session is started after the given interval.
      *
      * @param numUsers
      *            number of users
+     * @param interval
+     *            interval between sessions
      * @return user builder
      */
     public static UserBuilder atInterval(int numUsers, Duration interval) {

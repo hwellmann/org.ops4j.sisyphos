@@ -68,7 +68,7 @@ public class SimulationBuilder {
     /**
      * Sets the run description for this simulation.
      *
-     * @param id
+     * @param runDescription
      *            run description
      * @return this builder
      */

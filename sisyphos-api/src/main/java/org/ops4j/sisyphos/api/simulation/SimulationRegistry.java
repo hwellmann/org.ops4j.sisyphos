@@ -41,8 +41,7 @@ public final class SimulationRegistry {
 
     /**
      * Registers a simulation with the given name.
-     * @param name
-     * @param simulation
+     * @param simulation simulation
      */
     public static void register(SimulationBuilder simulation) {
         String name = simulation.getName();
