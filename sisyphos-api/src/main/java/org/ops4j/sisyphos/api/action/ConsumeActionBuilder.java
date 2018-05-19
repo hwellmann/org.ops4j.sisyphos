@@ -20,6 +20,8 @@ package org.ops4j.sisyphos.api.action;
 import org.ops4j.sisyphos.api.feed.FeedBuilder;
 
 /**
+ * Builds an actions which consumes an attribute map from a given feed.
+ *
  * @author Harald Wellmann
  *
  */
@@ -27,10 +29,18 @@ public class ConsumeActionBuilder<F> implements ActionBuilder {
 
     private FeedBuilder<F> feedBuilder;
 
+    /**
+     * Creates a consume action builder for the given feed builder
+     * @param feedBuilder feed builder
+     */
     public ConsumeActionBuilder(FeedBuilder<F> feedBuilder) {
         this.feedBuilder = feedBuilder;
     }
 
+    /**
+     * Gets the feed builder.
+     * @return feed builder
+     */
     public FeedBuilder<F> getFeedBuilder() {
         return feedBuilder;
     }

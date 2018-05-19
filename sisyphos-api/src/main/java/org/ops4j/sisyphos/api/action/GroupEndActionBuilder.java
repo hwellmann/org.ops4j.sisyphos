@@ -17,6 +17,12 @@
  */
 package org.ops4j.sisyphos.api.action;
 
+/**
+ * Builds an action to end a group.
+ *
+ * @author Harald Wellmann
+ *
+ */
 public class GroupEndActionBuilder implements ActionBuilder {
 
     private String groupName;
@@ -24,7 +30,6 @@ public class GroupEndActionBuilder implements ActionBuilder {
     GroupEndActionBuilder(String groupName) {
         this.groupName = groupName;
     }
-
 
     public String getGroupName() {
         return groupName;

@@ -20,6 +20,7 @@ package org.ops4j.sisyphos.api.action;
 import java.time.Duration;
 
 /**
+ * Builds a pause action which does nothing for a given (random) duration.
  * @author Harald Wellmann
  *
  */
@@ -33,10 +34,18 @@ public class PauseBuilder implements ActionBuilder {
         this.maxDuration = maxDuration;
     }
 
+    /**
+     * Gets minimum duration of random pause.
+     * @return duration
+     */
     public Duration getMinDuration() {
         return minDuration;
     }
 
+    /**
+     * Gets maximum duration of random pause.
+     * @return duration
+     */
     public Duration getMaxDuration() {
         return maxDuration;
     }

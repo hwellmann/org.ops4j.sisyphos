@@ -18,6 +18,8 @@
 package org.ops4j.sisyphos.api.action;
 
 /**
+ * Builds an action that will be retried on failure.
+ *
  * @author Harald Wellmann
  *
  */
@@ -31,10 +33,20 @@ public class RetryBuilder implements ActionBuilder {
         this.stepBuilder = stepBuilder;
     }
 
+    /**
+     * Gets the maximum number of retries.
+     *
+     * @return number of retries
+     */
     public int getNumRetries() {
         return numRetries;
     }
 
+    /**
+     * Gets the action to be executed, possibly retrying after failure.
+     *
+     * @return action
+     */
     public ActionBuilder getStepBuilder() {
         return stepBuilder;
     }

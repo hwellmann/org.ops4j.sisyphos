@@ -20,24 +20,79 @@ package org.ops4j.sisyphos.api.session;
 import java.util.Map;
 
 /**
+ * A session holds the state of a scenario executed by a user.
+ * <p>
+ * A session may hold user-defined attributes which are mutable.
+ *
  * @author Harald Wellmann
  *
  */
 public interface Session extends Comparable<Session> {
 
+    /**
+     * Gets the name of the scenario being executed.
+     *
+     * @return scenarion name
+     */
     String getScenario();
 
+    /**
+     * Gets the user identity of the user running this session.
+     *
+     * @return user identity
+     */
     Long getUserId();
 
+    /**
+     * Gets the start date of this session.
+     *
+     * @return start date
+     */
     long getStartDate();
 
+    /**
+     * Gets the status of this session.
+     *
+     * @return status
+     */
     Status getStatus();
 
-    Session markAsFailed();
+    /**
+     * Marks the session as failed.
+     *
+     * @return
+     */
+    void markAsFailed();
 
-    void setAttribute(String key, Object value);
+    /**
+     * Sets an attribute on this session.
+     *
+     * @param key
+     *            attribute name
+     * @param value
+     *            attribute value
+     * @param <T>
+     *            attribute value type
+     */
+    <T> void setAttribute(String key, T value);
 
+    /**
+     * Sets multiple attributes on this session. This is shorthand for iterating over the given map
+     * entries and calling {@link #setAttribute(String, Object)} for each entry.
+     *
+     * @param attributes
+     *            map of attributes
+     * @param value
+     *            attribute value
+     * @param <T>
+     *            attribute value type
+     */
     <T> void setAttributes(Map<String, T> attributes);
 
+    /**
+     * Gets the attibute value for the given attribute name.
+     * @param key attribute name
+     * @return attribute value or null
+     */
     <T> T getAttribute(String key);
 }

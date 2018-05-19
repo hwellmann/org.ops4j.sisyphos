@@ -18,6 +18,8 @@
 package org.ops4j.sisyphos.api.action;
 
 /**
+ * Builder for an action which does nothing.
+ *
  * @author Harald Wellmann
  *
  */

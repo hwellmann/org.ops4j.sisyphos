@@ -22,6 +22,8 @@ import java.util.function.Predicate;
 import org.ops4j.sisyphos.api.session.Session;
 
 /**
+ * Builds an either-or-action.
+ *
  * @author Harald Wellmann
  *
  */
@@ -37,14 +39,26 @@ public class IfBuilder implements ActionBuilder {
         this.elseAction = elseAction;
     }
 
+    /**
+     * Gets the condition or predicate to be checked on the current session.
+     * @return condition
+     */
     public Predicate<Session> getCondition() {
         return condition;
     }
 
+    /**
+     * Gets the action to be executed if the condition is true.
+     * @return if-action
+     */
     public ActionBuilder getIfAction() {
         return ifAction;
     }
 
+    /**
+     * Gets the action to be executed if the condition is false.
+     * @return else-action
+     */
     public ActionBuilder getElseAction() {
         return elseAction;
     }

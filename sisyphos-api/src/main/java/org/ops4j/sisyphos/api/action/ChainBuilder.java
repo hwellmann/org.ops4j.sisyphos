@@ -20,6 +20,8 @@ package org.ops4j.sisyphos.api.action;
 import io.vavr.collection.List;
 
 /**
+ * Builds a chain of actions to be executed in the given order.
+ *
  * @author Harald Wellmann
  *
  */
@@ -28,6 +30,10 @@ public class ChainBuilder implements Exec<ChainBuilder> {
     private List<ActionBuilder> actionBuilders;
 
 
+    /**
+     * Creates a chain builder from the given list of action builders.
+     * @param actionBuilders action builders
+     */
     public ChainBuilder(List<ActionBuilder> actionBuilders) {
         this.actionBuilders = actionBuilders;
     }

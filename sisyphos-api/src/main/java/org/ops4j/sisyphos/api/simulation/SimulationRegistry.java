@@ -23,6 +23,13 @@ import io.vavr.collection.HashMap;
 import io.vavr.collection.Map;
 import io.vavr.control.Option;
 
+/**
+ * Registry for all simulations currently defined in the system.
+ * <p>
+ * Used in distributed mode to run a simulation by name on a given worker node.
+ *
+ * @author Harald Wellmann
+ */
 public final class SimulationRegistry {
 
     private static Map<String, SimulationBuilder> simulationMap = HashMap.empty();
@@ -32,17 +39,32 @@ public final class SimulationRegistry {
         // hidden constructor
     }
 
-    public static void register(String name, SimulationBuilder simulation) {
+    /**
+     * Registers a simulation with the given name.
+     * @param name
+     * @param simulation
+     */
+    public static void register(SimulationBuilder simulation) {
+        String name = simulation.getName();
         if (simulationMap.containsKey(name)) {
             throw new IllegalArgumentException(String.format("Simulation named '%s' already exists", name));
         }
         simulationMap = simulationMap.put(name, simulation);
     }
 
+    /**
+     * Finds a simulation with the given name.
+     * @param name simulation name
+     * @return matching simulation, if present
+     */
     public static Option<SimulationBuilder> find(String name) {
         return simulationMap.get(name);
     }
 
+    /**
+     * Finds all names of simulation stored in this registry.
+     * @return sorted list of names
+     */
     public static List<String> findNames() {
         return simulationMap.keySet().toSortedSet().toJavaList();
     }

@@ -24,6 +24,8 @@ import org.ops4j.sisyphos.api.user.UserBuilder;
 import io.vavr.collection.List;
 
 /**
+ * Builds a scenarion of a simulation in fluent syntax.
+ *
  * @author Harald Wellmann
  *
  */
@@ -49,20 +51,28 @@ public class ScenarioBuilder implements Exec<ScenarioBuilder> {
     }
 
 
+    /**
+     * Gets the name of this scenario.
+     * @return scenario name
+     */
     public String getName() {
         return name;
     }
 
-    public ScenarioBuilder withUsers(List<UserBuilder> userBuilders) {
-        this.userBuilders = this.userBuilders.appendAll(userBuilders);
-        return this;
-    }
-
+    /**
+     * Sets user builder for this scenario.
+     * @param userBuilders user builders
+     * @return this builer
+     */
     public ScenarioBuilder withUsers(UserBuilder... userBuilders) {
         this.userBuilders = this.userBuilders.appendAll(List.of(userBuilders));
         return this;
     }
 
+    /**
+     * Gets the user builders for this scenario.
+     * @return user builders
+     */
     public List<UserBuilder> getUserBuilders() {
         return userBuilders;
     }

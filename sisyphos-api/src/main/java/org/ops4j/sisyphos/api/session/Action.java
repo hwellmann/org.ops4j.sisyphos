@@ -20,16 +20,25 @@ package org.ops4j.sisyphos.api.session;
 import java.util.function.UnaryOperator;
 
 /**
+ * An action excutes on a session and transforms its state.
+ *
  * @author Harald Wellmann
  *
  */
 @FunctionalInterface
 public interface Action extends UnaryOperator<Session> {
 
+    /**
+     * Executes this action of the given session.
+     *
+     * @param session
+     *            session
+     * @return updated session
+     */
     Session execute(Session session);
 
     @Override
     default Session apply(Session session) {
         return execute(session);
     }
- }
+}

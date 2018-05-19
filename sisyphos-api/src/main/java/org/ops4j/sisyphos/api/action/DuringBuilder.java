@@ -20,6 +20,8 @@ package org.ops4j.sisyphos.api.action;
 import java.time.Duration;
 
 /**
+ * Creates a builder which will repeat a given action for a given duration.
+ *
  * @author Harald Wellmann
  *
  */
@@ -33,10 +35,18 @@ public class DuringBuilder implements ActionBuilder {
         this.stepBuilder = stepBuilder;
     }
 
+    /**
+     * Gets the duration for which the action of this builder will be repeated.
+     * @return duration
+     */
     public Duration getDuration() {
         return duration;
     }
 
+    /**
+     * Gets the builder for the action to be repeated.
+     * @return action builder
+     */
     public ActionBuilder getStepBuilder() {
         return stepBuilder;
     }

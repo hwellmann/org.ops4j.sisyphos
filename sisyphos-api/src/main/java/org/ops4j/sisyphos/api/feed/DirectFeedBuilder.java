@@ -23,6 +23,8 @@ import io.vavr.collection.List;
 import io.vavr.collection.Map;
 
 /**
+ * Builds a feed from a list of values.
+ *
  * @author Harald Wellmann
  *
  */
@@ -32,6 +34,16 @@ public class DirectFeedBuilder<T> implements FeedBuilder<T> {
     private IndexedSeq<Map<String, T>> records;
     private String propertyName;
 
+    /**
+     * Creates a feed builder from a list of values.
+     *
+     * @param propertyName
+     *            attribute name for feed values in the current session.
+     * @param strategy
+     *            feed strategy
+     * @param values
+     *            list of values
+     */
     public DirectFeedBuilder(String propertyName, FeedStrategy strategy, T[] values) {
         this.strategy = strategy;
         this.propertyName = propertyName;
@@ -49,6 +61,11 @@ public class DirectFeedBuilder<T> implements FeedBuilder<T> {
         return propertyName;
     }
 
+    /**
+     * Gets a sequence of record from the feed values. Each record is a map with a single entry,
+     * mapping the property name to one of the feed values.
+     * @return record sequence
+     */
     public IndexedSeq<Map<String, T>> getRecords() {
         return records;
     }

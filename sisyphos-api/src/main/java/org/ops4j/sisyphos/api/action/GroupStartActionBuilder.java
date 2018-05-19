@@ -17,15 +17,19 @@
  */
 package org.ops4j.sisyphos.api.action;
 
+/**
+ * Builds an action to start a group.
+ *
+ * @author Harald Wellmann
+ *
+ */
 public class GroupStartActionBuilder implements ActionBuilder {
-
 
     private String groupName;
 
     GroupStartActionBuilder(String groupName) {
         this.groupName = groupName;
     }
-
 
     public String getGroupName() {
         return groupName;

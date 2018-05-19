@@ -18,23 +18,32 @@
 package org.ops4j.sisyphos.api.action;
 
 /**
+ * Builds a repeated action.
  * @author Harald Wellmann
  *
  */
 public class RepeatBuilder implements ActionBuilder {
 
-    private int numIterations;
+    private int numRepetitions;
     private ActionBuilder stepBuilder;
 
     RepeatBuilder(int numIterations, ActionBuilder stepBuilder) {
-        this.numIterations = numIterations;
+        this.numRepetitions = numIterations;
         this.stepBuilder = stepBuilder;
     }
 
-    public int getNumIterations() {
-        return numIterations;
+    /**
+     * Gets the number of repetitions.
+     * @return number of repetitions
+     */
+    public int getNumRepetitions() {
+        return numRepetitions;
     }
 
+    /**
+     * Gets the action to be repeated.
+     * @return action
+     */
     public ActionBuilder getStepBuilder() {
         return stepBuilder;
     }

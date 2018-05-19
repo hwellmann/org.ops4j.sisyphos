@@ -18,10 +18,16 @@
 package org.ops4j.sisyphos.api.simulation;
 
 /**
+ *
  * @author Harald Wellmann
  *
  */
 public interface SimulationRunner {
 
+    /**
+     * Runs a given simulation. This method blocks until all sessions of the simulation have
+     * terminated. A simulation logfile will be created in the report directory.
+     * @param simulation simulation to be run
+     */
     void runSimulation(SimulationBuilder simulation);
 }

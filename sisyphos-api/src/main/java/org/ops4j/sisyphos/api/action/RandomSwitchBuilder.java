@@ -23,6 +23,10 @@ import io.vavr.collection.List;
 import io.vavr.collection.Map;
 
 /**
+ * Builds a random switch for a list of weighted actions.
+ * <p>
+ * The probability for each action is its weight divided by the total weight of all actions.
+ *
  * @author Harald Wellmann
  *
  */
@@ -30,7 +34,6 @@ public class RandomSwitchBuilder implements ActionBuilder {
 
     private List<Tuple2<Double, ActionBuilder>> actionBuilders;
     private double totalWeight;
-
 
     RandomSwitchBuilder(List<ActionBuilder> actionBuilders) {
         this(actionBuilders.toMap(a -> Tuple.of(1.0, a)));
@@ -41,7 +44,8 @@ public class RandomSwitchBuilder implements ActionBuilder {
 
         List<Tuple2<Double, ActionBuilder>> zero = List.of(Tuple.of(0.0, null));
         this.actionBuilders = actionBuilders.iterator()
-                .foldLeft(zero, (list, t) -> list.append(Tuple.of(list.last()._1() + t._1(), t._2()))).tail();
+            .foldLeft(zero, (list, t) -> list.append(Tuple.of(list.last()._1() + t._1(), t._2())))
+            .tail();
 
         this.totalWeight = this.actionBuilders.last()._1();
     }
@@ -52,11 +56,18 @@ public class RandomSwitchBuilder implements ActionBuilder {
         }
     }
 
+    /**
+     * Gets the list of weighted actions.
+     * @return list of pairs (weight, action)
+     */
     public List<Tuple2<Double, ActionBuilder>> getCases() {
         return actionBuilders;
     }
 
-
+    /**
+     * Gets the total weight of all actions.
+     * @return total weight.
+     */
     public double getTotalWeight() {
         return totalWeight;
     }

@@ -20,6 +20,8 @@ package org.ops4j.sisyphos.api.action;
 import org.ops4j.sisyphos.api.session.Action;
 
 /**
+ * Builds a request wrapping the given action.
+ *
  * @author Harald Wellmann
  *
  */
@@ -33,10 +35,18 @@ public class RequestActionBuilder implements ActionBuilder {
         this.action = action;
     }
 
+    /**
+     * Gets the request name.
+     * @return name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Gets the action to be executed and measured.
+     * @return action
+     */
     public Action getAction() {
         return action;
     }

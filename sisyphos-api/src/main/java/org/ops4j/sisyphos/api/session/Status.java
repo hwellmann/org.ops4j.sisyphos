@@ -18,10 +18,16 @@
 package org.ops4j.sisyphos.api.session;
 
 /**
+ * Session status.
+ *
  * @author Harald Wellmann
  *
  */
 public enum Status {
+
+    /** All actions succeeded (with retries). */
     OK,
+
+    /** At least one action has failed (after retries). */
     KO;
 }

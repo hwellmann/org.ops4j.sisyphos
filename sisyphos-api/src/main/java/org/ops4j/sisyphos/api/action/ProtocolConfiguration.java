@@ -18,6 +18,8 @@
 package org.ops4j.sisyphos.api.action;
 
 /**
+ * Marker interface for protocol configurations.
+ *
  * @author Harald Wellmann
  *
  */

@@ -18,6 +18,9 @@
 package org.ops4j.sisyphos.api.action;
 
 /**
+ * Marker interface for action builders. Every concrete action builder shall implement this
+ * interface.
+ *
  * @author Harald Wellmann
  *
  */

@@ -1,4 +1,6 @@
 /**
+ * Builders for virtual users.
+ *
  * @author Harald Wellmann
  *
  */

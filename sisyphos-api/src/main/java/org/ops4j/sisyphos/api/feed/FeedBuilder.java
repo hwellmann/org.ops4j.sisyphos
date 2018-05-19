@@ -17,10 +17,26 @@
  */
 package org.ops4j.sisyphos.api.feed;
 
-
+/**
+ * A feed builder defines a sequence of records and a strategy for producing a feed from these
+ * records.
+ *
+ * @param <F>
+ *            type of feed values
+ * @author Harald Wellmann
+ */
 public interface FeedBuilder<F> {
 
+    /**
+     * Gets the feed strategy.
+     * @return feed strategy
+     */
     FeedStrategy getStrategy();
+
+    /**
+     * Gets the name of this feed.
+     * @return feed name
+     */
     String getName();
 
 }

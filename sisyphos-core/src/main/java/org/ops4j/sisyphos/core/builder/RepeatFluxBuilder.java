@@ -37,6 +37,6 @@ public class RepeatFluxBuilder implements FluxBuilder {
     public Flux<Session> buildFlux(ScenarioContext context) {
         FluxBuilderAdapter adapter = new FluxBuilderAdapter();
         FluxBuilder fluxBuilder = adapter.adapt(repeatBuilder.getStepBuilder());
-        return Repeat.times(repeatBuilder.getNumIterations()).apply(fluxBuilder.buildFlux(context));
+        return Repeat.times(repeatBuilder.getNumRepetitions()).apply(fluxBuilder.buildFlux(context));
     }
 }

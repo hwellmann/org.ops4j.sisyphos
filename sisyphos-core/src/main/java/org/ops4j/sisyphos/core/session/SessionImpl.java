@@ -108,9 +108,8 @@ public class SessionImpl implements ExtendedSession {
     }
 
     @Override
-    public Session markAsFailed() {
+    public void markAsFailed() {
         status = Status.KO;
-        return this;
     }
 
     @Override
@@ -119,7 +118,7 @@ public class SessionImpl implements ExtendedSession {
     }
 
     @Override
-    public void setAttribute(String key, Object value) {
+    public <T> void setAttribute(String key, T value) {
         attributes.put(key, value);
         engine.setValue(key, value);
     }

@@ -25,20 +25,31 @@ import io.vavr.collection.Iterator;
 import io.vavr.collection.Map;
 
 /**
+ * A feed strategy creates a possible infinite feed from a given finite sequence of records.
+ *
  * @author Harald Wellmann
  *
  */
 public enum FeedStrategy {
 
+    /**
+     * A feed with queue strategy simply returns the given records in the given order and then
+     * terminates.
+     */
     QUEUE {
+
         @Override
         public <T> Iterator<Map<String, T>> createFeed(IndexedSeq<Map<String, T>> records) {
             return records.iterator();
         }
     },
 
-
+    /**
+     * A feed with random strategy is infinite, returning a random record from the given sequence at
+     * each request.
+     */
     RANDOM {
+
         @Override
         public <T> Iterator<Map<String, T>> createFeed(IndexedSeq<Map<String, T>> records) {
             return new Iterator<Map<String, T>>() {
@@ -58,14 +69,24 @@ public enum FeedStrategy {
         }
     },
 
+    /**
+     * A feed with shuffle strategy returns the given records in random order and then
+     * terminates. Each record appears in the feed once and only once.
+     */
     SHUFFLE {
+
         @Override
         public <T> Iterator<Map<String, T>> createFeed(IndexedSeq<Map<String, T>> records) {
             return records.shuffle().iterator();
         }
     },
 
+    /**
+     * A feed with circular strategy is infinite, returning the records from the given sequence in the given order,
+     * restarting at the start of the sequence when the end is reached.
+     */
     CIRCULAR {
+
         @Override
         public <T> Iterator<Map<String, T>> createFeed(IndexedSeq<Map<String, T>> records) {
             return new Iterator<Map<String, T>>() {
@@ -87,6 +108,5 @@ public enum FeedStrategy {
         }
     };
 
-    public abstract <T> Iterator<Map<String, T>>
-        createFeed(IndexedSeq<Map<String, T>> records);
+    public abstract <T> Iterator<Map<String, T>> createFeed(IndexedSeq<Map<String, T>> records);
 }
