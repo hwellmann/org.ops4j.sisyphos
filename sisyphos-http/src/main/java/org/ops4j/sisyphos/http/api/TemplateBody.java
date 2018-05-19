@@ -26,9 +26,6 @@ import org.ops4j.sisyphos.core.session.SessionImpl;
 /**
  * Builder for body entity of an HTTP request, created from a template file.
  *
- * @param <T>
- *            Java type of entity representation (not to be confused with the HTTP media type)
- *
  * @author Harald Wellmann
  *
  */

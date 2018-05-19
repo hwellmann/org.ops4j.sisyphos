@@ -145,6 +145,10 @@ public final class Sisyphos {
      *            attribute key under which the feed value will be stored in the session.
      * @param strategy
      *            feed strategy
+     * @param values
+     *            list of values
+     * @param <F>
+     *            type of feed values
      * @return feed builder
      */
     @SafeVarargs
@@ -158,6 +162,8 @@ public final class Sisyphos {
      *
      * @param feedBuilder
      *            feed builder
+     * @param <F>
+     *            type of feed values
      * @return chain builder
      */
     public static <F> ChainBuilder consume(FeedBuilder<F> feedBuilder) {

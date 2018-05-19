@@ -50,7 +50,9 @@ public final class SisyphosHttp {
      * The path is relative to the template path defined by configuration.
      * <p>
      * Variables in the template will be interpolated with values from the current session.
-     * @param path template path
+     *
+     * @param path
+     *            template path
      * @return builder
      */
     public static TemplateBody template(String path) {
@@ -59,7 +61,9 @@ public final class SisyphosHttp {
 
     /**
      * Creates an HTTP body entity using the given content.
-     * @param content literal body content
+     *
+     * @param content
+     *            literal body content
      * @return builder
      */
     public static RawBody raw(String content) {
@@ -68,7 +72,11 @@ public final class SisyphosHttp {
 
     /**
      * Creates a JSON path check for the given JSON path.
-     * @param jsonPath JSON path expression
+     *
+     * @param jsonPath
+     *            JSON path expression
+     * @param <T>
+     *            type of extracted value
      * @return builder
      */
     public static <T> JsonPathCheckBuilder<T> jsonPath(String jsonPath) {
@@ -77,6 +85,7 @@ public final class SisyphosHttp {
 
     /**
      * Creates an HTTP status check.
+     *
      * @return builder
      */
     public static DefaultValidatorCheckBuilder<Response, Integer> status() {
@@ -85,6 +94,7 @@ public final class SisyphosHttp {
 
     /**
      * Creates an HTTP configuration builder.
+     *
      * @return builder
      */
     public static HttpConfiguration httpConfig() {

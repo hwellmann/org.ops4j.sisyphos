@@ -25,6 +25,9 @@ import com.jayway.jsonpath.JsonPath;
 /**
  * Builder for JSON path checks.
  *
+ * @param <T>
+ *            type of extracted value
+ *
  * @author Harald Wellmann
  *
  */

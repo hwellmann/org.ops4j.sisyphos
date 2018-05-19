@@ -129,7 +129,7 @@ public class HttpConfiguration implements ProtocolConfiguration {
      *
      * @param userAgentHeader
      *            user agent
-     * @return
+     * @return builder
      */
     public HttpConfiguration userAgentHeader(String userAgentHeader) {
         this.userAgentHeader = userAgentHeader;
@@ -139,9 +139,9 @@ public class HttpConfiguration implements ProtocolConfiguration {
     /**
      * Defines basic authentication credentials to be used for all requests.
      *
-     * @param userAgentHeader
-     *            user agent
-     * @return
+     * @param username username
+     * @param password password
+     * @return builder
      */
     public HttpConfiguration basicAuth(String username, String password) {
         this.username = username;
