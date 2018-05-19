@@ -16,9 +16,9 @@
  * limitations under the License.
  */
 /**
- * APIs related to virtual user sessions.
+ * JAX-RS application for remote simulation execution.
  *
  * @author Harald Wellmann
  *
  */
-package org.ops4j.sisyphos.api.session;
+package org.ops4j.sisyphos.remote.rest;

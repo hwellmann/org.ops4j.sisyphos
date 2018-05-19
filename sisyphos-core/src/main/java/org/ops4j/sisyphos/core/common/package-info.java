@@ -16,9 +16,9 @@
  * limitations under the License.
  */
 /**
- * APIs related to virtual user sessions.
+ * Classes shared by multiple packages of this module.
  *
  * @author Harald Wellmann
  *
  */
-package org.ops4j.sisyphos.api.session;
+package org.ops4j.sisyphos.core.common;

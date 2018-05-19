@@ -16,9 +16,9 @@
  * limitations under the License.
  */
 /**
- * APIs related to virtual user sessions.
+ * Default simulation runner for local execution.
  *
  * @author Harald Wellmann
  *
  */
-package org.ops4j.sisyphos.api.session;
+package org.ops4j.sisyphos.core.runner;
