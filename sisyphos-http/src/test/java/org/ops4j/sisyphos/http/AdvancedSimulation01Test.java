@@ -17,10 +17,10 @@
  */
 package org.ops4j.sisyphos.http;
 
-import static org.ops4j.sisyphos.api.simulation.Sisyphos.atOnce;
 import static org.ops4j.sisyphos.api.simulation.Sisyphos.exec;
 import static org.ops4j.sisyphos.api.simulation.Sisyphos.scenario;
 import static org.ops4j.sisyphos.api.simulation.Sisyphos.simulation;
+import static org.ops4j.sisyphos.api.simulation.Sisyphos.users;
 import static org.ops4j.sisyphos.http.api.SisyphosHttp.http;
 import static org.ops4j.sisyphos.http.api.SisyphosHttp.httpConfig;
 
@@ -98,7 +98,7 @@ public class AdvancedSimulation01Test {
         simulation("Advanced Simulation 01")
             .withConfig(httpConfig)
             .withScenario(scenario("Advanced Scenario 01")
-                .withUsers(atOnce(1))
+                .with(users(1).atOnce())
                 .exec(search, browse, edit))
             .run();
     }

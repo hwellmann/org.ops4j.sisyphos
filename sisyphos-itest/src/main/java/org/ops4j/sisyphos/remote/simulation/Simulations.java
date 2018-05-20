@@ -17,10 +17,10 @@
  */
 package org.ops4j.sisyphos.remote.simulation;
 
-import static org.ops4j.sisyphos.api.simulation.Sisyphos.atInterval;
 import static org.ops4j.sisyphos.api.simulation.Sisyphos.exec;
 import static org.ops4j.sisyphos.api.simulation.Sisyphos.scenario;
 import static org.ops4j.sisyphos.api.simulation.Sisyphos.simulation;
+import static org.ops4j.sisyphos.api.simulation.Sisyphos.users;
 import static org.ops4j.sisyphos.http.api.SisyphosHttp.http;
 import static org.ops4j.sisyphos.http.api.SisyphosHttp.httpConfig;
 import static org.ops4j.sisyphos.http.api.SisyphosHttp.raw;
@@ -59,7 +59,7 @@ public class Simulations {
             .withConfig(httpConfig)
             .withReportDir("jsonplaceholder-itest")
             .withScenario(scenario("jsontest")
-                .withUsers(atInterval(10, Duration.ofMillis(100)))
+                .with(users(10).atInterval(Duration.ofMillis(100)))
                 .repeat(1,
                     exec(listPosts)
                     .pause(1, 3)

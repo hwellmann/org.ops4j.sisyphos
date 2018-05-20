@@ -17,7 +17,6 @@
  */
 package org.ops4j.sisyphos.api.simulation;
 
-import java.time.Duration;
 import java.util.function.Function;
 
 import org.ops4j.sisyphos.api.action.ActionBuilder;
@@ -30,9 +29,6 @@ import org.ops4j.sisyphos.api.feed.FeedBuilder;
 import org.ops4j.sisyphos.api.feed.FeedStrategy;
 import org.ops4j.sisyphos.api.session.Action;
 import org.ops4j.sisyphos.api.session.Session;
-import org.ops4j.sisyphos.api.user.AtIntervalUserBuilder;
-import org.ops4j.sisyphos.api.user.AtOnceUserBuilder;
-import org.ops4j.sisyphos.api.user.UserBuilder;
 
 import io.vavr.collection.List;
 
@@ -201,26 +197,13 @@ public final class Sisyphos {
 
     /**
      * Creates the given number of users which will all start a session immediately.
+     * An offset interval can be configured via the returned builder.
      *
      * @param numUsers
      *            number of users
      * @return user builder
      */
-    public static UserBuilder atOnce(int numUsers) {
-        return new AtOnceUserBuilder(numUsers);
-    }
-
-    /**
-     * Creates the given number of users which will start a session each. The first session is
-     * started immediately, each subsequent session is started after the given interval.
-     *
-     * @param numUsers
-     *            number of users
-     * @param interval
-     *            interval between sessions
-     * @return user builder
-     */
-    public static UserBuilder atInterval(int numUsers, Duration interval) {
-        return new AtIntervalUserBuilder(numUsers, interval);
+    public static UserBuilder users(int numUsers) {
+        return new UserBuilder(numUsers);
     }
 }

@@ -25,7 +25,7 @@ import org.ops4j.sisyphos.api.session.Session;
 import org.ops4j.sisyphos.api.simulation.ScenarioBuilder;
 import org.ops4j.sisyphos.api.simulation.SimulationBuilder;
 import org.ops4j.sisyphos.api.simulation.SimulationRunner;
-import org.ops4j.sisyphos.api.user.UserBuilder;
+import org.ops4j.sisyphos.api.simulation.UserBuilder;
 import org.ops4j.sisyphos.core.builder.FluxBuilderAdapter;
 import org.ops4j.sisyphos.core.builder.UserFluxBuilder;
 import org.ops4j.sisyphos.core.common.ScenarioContext;

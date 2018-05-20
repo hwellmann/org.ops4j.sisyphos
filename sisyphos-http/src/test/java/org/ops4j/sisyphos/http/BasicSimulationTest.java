@@ -17,9 +17,9 @@
  */
 package org.ops4j.sisyphos.http;
 
-import static org.ops4j.sisyphos.api.simulation.Sisyphos.atOnce;
 import static org.ops4j.sisyphos.api.simulation.Sisyphos.scenario;
 import static org.ops4j.sisyphos.api.simulation.Sisyphos.simulation;
+import static org.ops4j.sisyphos.api.simulation.Sisyphos.users;
 import static org.ops4j.sisyphos.http.api.SisyphosHttp.http;
 import static org.ops4j.sisyphos.http.api.SisyphosHttp.httpConfig;
 
@@ -56,7 +56,7 @@ public class BasicSimulationTest {
         simulation("Basic Simulation")
             .withConfig(httpConfig)
             .withScenario(scenario("Basic Scenario")
-                .withUsers(atOnce(1))
+                .with(users(1).atOnce())
                 .exec(http("request_1")
                     .get("/"))
                 .pause(7)

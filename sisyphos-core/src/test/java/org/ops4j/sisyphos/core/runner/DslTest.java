@@ -17,11 +17,11 @@
  */
 package org.ops4j.sisyphos.core.runner;
 
-import static org.ops4j.sisyphos.api.simulation.Sisyphos.atOnce;
 import static org.ops4j.sisyphos.api.simulation.Sisyphos.exec;
 import static org.ops4j.sisyphos.api.simulation.Sisyphos.request;
 import static org.ops4j.sisyphos.api.simulation.Sisyphos.scenario;
 import static org.ops4j.sisyphos.api.simulation.Sisyphos.simulation;
+import static org.ops4j.sisyphos.api.simulation.Sisyphos.users;
 
 import org.junit.Test;
 import org.ops4j.sisyphos.api.session.Session;
@@ -50,7 +50,7 @@ public class DslTest {
 
         simulation("test")
         .withScenario(scenario
-            .withUsers(atOnce(1)))
+            .with(users(1).atOnce()))
         .run();
     }
 }

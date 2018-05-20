@@ -17,10 +17,10 @@
  */
 package org.ops4j.sisyphos.http;
 
-import static org.ops4j.sisyphos.api.simulation.Sisyphos.atInterval;
 import static org.ops4j.sisyphos.api.simulation.Sisyphos.exec;
 import static org.ops4j.sisyphos.api.simulation.Sisyphos.scenario;
 import static org.ops4j.sisyphos.api.simulation.Sisyphos.simulation;
+import static org.ops4j.sisyphos.api.simulation.Sisyphos.users;
 import static org.ops4j.sisyphos.http.api.SisyphosHttp.http;
 import static org.ops4j.sisyphos.http.api.SisyphosHttp.httpConfig;
 
@@ -97,10 +97,10 @@ public class AdvancedSimulation02Test {
         simulation("Advanced Simulation 02")
             .withConfig(httpConfig)
             .withScenario(scenario("Users")
-                .withUsers(atInterval(10, Duration.ofSeconds(1)))
+                .with(users(10).atInterval(Duration.ofSeconds(1)))
                 .exec(search, browse))
             .withScenario(scenario("Admins")
-                .withUsers(atInterval(2, Duration.ofSeconds(5)))
+                .with(users(2).atInterval(Duration.ofSeconds(5)))
                 .exec(search, browse, edit))
             .run();
     }

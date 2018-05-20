@@ -18,7 +18,6 @@
 package org.ops4j.sisyphos.api.simulation;
 
 import org.ops4j.sisyphos.api.action.ProtocolConfiguration;
-import org.ops4j.sisyphos.api.user.UserBuilder;
 import org.ops4j.spi.ServiceProviderFinder;
 
 import io.vavr.collection.List;

@@ -17,10 +17,10 @@
  */
 package org.ops4j.sisyphos.core.builder;
 
+import java.time.Duration;
+
 import org.ops4j.sisyphos.api.session.Session;
-import org.ops4j.sisyphos.api.user.AtIntervalUserBuilder;
-import org.ops4j.sisyphos.api.user.AtOnceUserBuilder;
-import org.ops4j.sisyphos.api.user.UserBuilder;
+import org.ops4j.sisyphos.api.simulation.UserBuilder;
 
 import reactor.core.publisher.Flux;
 import reactor.core.scheduler.Schedulers;
@@ -35,20 +35,18 @@ public class UserFluxBuilder {
     }
 
     public Flux<Session> build() {
-        if (userBuilder instanceof AtOnceUserBuilder) {
+        if (userBuilder.getInterval().equals(Duration.ZERO)) {
             return buildAtOnce();
         }
-        if (userBuilder instanceof AtIntervalUserBuilder) {
-            return buildAtInterval((AtIntervalUserBuilder) userBuilder);
+        else {
+            return buildAtInterval();
         }
-
-        throw new IllegalArgumentException(userBuilder.getClass().getName());
     }
 
-    private Flux<Session> buildAtInterval(AtIntervalUserBuilder atInterval) {
+    private Flux<Session> buildAtInterval() {
         SessionFactory factory = SessionFactory.create();
         return Flux.range(0, userBuilder.getNumUsers())
-            .delayElements(atInterval.getInterval(), Schedulers.parallel())
+            .delayElements(userBuilder.getInterval(), Schedulers.parallel())
             .map(i -> factory.newSession(userBuilder.nextUserId()));
     }
 

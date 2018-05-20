@@ -19,7 +19,6 @@ package org.ops4j.sisyphos.api.simulation;
 
 import org.ops4j.sisyphos.api.action.ActionBuilder;
 import org.ops4j.sisyphos.api.action.Exec;
-import org.ops4j.sisyphos.api.user.UserBuilder;
 
 import io.vavr.collection.List;
 
@@ -64,7 +63,7 @@ public class ScenarioBuilder implements Exec<ScenarioBuilder> {
      * @param userBuilders user builders
      * @return this builer
      */
-    public ScenarioBuilder withUsers(UserBuilder... userBuilders) {
+    public ScenarioBuilder with(UserBuilder... userBuilders) {
         this.userBuilders = this.userBuilders.appendAll(List.of(userBuilders));
         return this;
     }
