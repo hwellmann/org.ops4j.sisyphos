@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ops4j.sisyphos.remote.simulation;
+package org.ops4j.sisyphos.itest;
 
 import static org.ops4j.sisyphos.api.simulation.Sisyphos.exec;
 import static org.ops4j.sisyphos.api.simulation.Sisyphos.scenario;

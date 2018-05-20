@@ -3,8 +3,8 @@ package org.ops4j.sisyphos.remote;
 import org.junit.Test;
 import org.ops4j.sisyphos.api.simulation.SimulationBuilder;
 import org.ops4j.sisyphos.api.simulation.SimulationRegistry;
+import org.ops4j.sisyphos.itest.Simulations;
 import org.ops4j.sisyphos.remote.runner.RemoteSimulationRunner;
-import org.ops4j.sisyphos.remote.simulation.Simulations;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
 public class RemoteRunnerIT {
