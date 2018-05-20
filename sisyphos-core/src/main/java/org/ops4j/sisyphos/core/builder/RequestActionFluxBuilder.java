@@ -61,7 +61,7 @@ public class RequestActionFluxBuilder implements FluxBuilder {
         if (message != null) {
             msg.setMessage(message);
         }
-        context.messageSink().next(msg);
+        context.getMessageSink().next(msg);
         return session;
     }
 }

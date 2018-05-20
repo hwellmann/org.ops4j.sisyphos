@@ -17,7 +17,24 @@
  */
 package org.ops4j.sisyphos.core.common;
 
+/**
+ * Adapts a source type to a target type.
+ *
+ * @param <S>
+ *            source type
+ * @param <T>
+ *            target type
+ *
+ * @author Harald Wellmann
+ */
 public interface Adapter<S, T> {
 
-    T adapt(S actionBuilder);
+    /**
+     * Adapts the source to a target type.
+     *
+     * @param source
+     *            source object
+     * @return target object
+     */
+    T adapt(S source);
 }

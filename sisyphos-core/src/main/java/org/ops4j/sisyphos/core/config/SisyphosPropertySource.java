@@ -28,13 +28,24 @@ import org.apache.tamaya.ConfigException;
 import org.apache.tamaya.core.propertysource.BasePropertySource;
 import org.apache.tamaya.spi.PropertyValue;
 
+/**
+ * Tamaya property source which reads a properties resource {@code sisyphos.properties} from the
+ * root of the classpath.
+ * <p>
+ * The ordinal is lower than all built-in sources, so that the classpath properties can be
+ * overridden by system properties or environment variables.
+ *
+ * @author Harald Wellmann
+ *
+ */
 public class SisyphosPropertySource extends BasePropertySource {
 
     private static final int ORDINAL = 90;
 
     @Override
     public Map<String, PropertyValue> getProperties() {
-        InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("sisyphos.properties");
+        InputStream is = Thread.currentThread().getContextClassLoader()
+            .getResourceAsStream("sisyphos.properties");
         if (is == null) {
             return Collections.emptyMap();
         }
@@ -43,7 +54,8 @@ public class SisyphosPropertySource extends BasePropertySource {
         try {
             props.load(is);
             for (String key : props.stringPropertyNames()) {
-                properties.put(key, PropertyValue.of(key, props.getProperty(key), "sisyphos.properties"));
+                properties.put(key,
+                    PropertyValue.of(key, props.getProperty(key), "sisyphos.properties"));
             }
         }
         catch (IOException exc) {
@@ -56,5 +68,4 @@ public class SisyphosPropertySource extends BasePropertySource {
     public int getOrdinal() {
         return ORDINAL;
     }
-
 }

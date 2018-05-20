@@ -23,13 +23,27 @@ import org.ops4j.sisyphos.core.message.StatisticsMessage;
 import reactor.core.publisher.FluxSink;
 
 /**
+ * Execution context for a scenario.
+ *
  * @author Harald Wellmann
  *
  */
 public interface ScenarioContext {
 
-    FluxSink<StatisticsMessage> messageSink();
-    String getDataPath();
+    /**
+     * Gets the sink for statistics messages generated during execution.
+     *
+     * @return message sink
+     */
+    FluxSink<StatisticsMessage> getMessageSink();
+
+    /**
+     * Gets the configuration for a given protocol.
+     *
+     * @param klass
+     *            configuration class for a specific protocol (e.g. HTTP)
+     * @return protocol configuration
+     */
     <T extends ProtocolConfiguration> T getProtocolConfiguration(Class<T> klass);
 
 }

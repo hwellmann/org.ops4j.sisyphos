@@ -19,13 +19,32 @@ package org.ops4j.sisyphos.core.config;
 
 import org.ops4j.spi.ServiceProviderFinder;
 
+/**
+ * Factory for system configurations.
+ *
+ * @author Harald Wellmann
+ *
+ */
 public interface ConfigurationFactory {
+
+    /**
+     * Gets the system configuration.
+     * @return configuration
+     */
     Configuration getConfiguration();
 
+    /**
+     * Creates a configuration factory.
+     * @return configuration factory
+     */
     static ConfigurationFactory create() {
         return ServiceProviderFinder.loadUniqueServiceProvider(ConfigurationFactory.class);
     }
 
+    /**
+     * Creates a configuration factory and gets the configuration.
+     * @return configuration
+     */
     static Configuration configuration() {
         return create().getConfiguration();
     }

@@ -22,11 +22,28 @@ import io.vavr.collection.Iterator;
 import io.vavr.collection.Map;
 
 /**
+ * Builds a feed from a feed builder definition.
+ *
  * @author Harald Wellmann
  *
  */
 public interface FeedSequenceBuilder<T> {
 
+    /**
+     * Generates a sequence of records which will yield the feed, subject to a feed strategy.
+     *
+     * @param context
+     *            scenario context
+     * @return record sequence
+     */
     IndexedSeq<Map<String, T>> generateRecords(ScenarioContext context);
+
+    /**
+     * Builds a possibly infinite feed of records from a given finite sequence and a feed strategy.
+     *
+     * @param context
+     *            scenario context
+     * @return record iterator
+     */
     Iterator<Map<String, T>> buildFeed(ScenarioContext context);
 }

@@ -30,6 +30,7 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.ops4j.sisyphos.api.feed.CsvFeedBuilder;
 import org.ops4j.sisyphos.core.common.ScenarioContext;
+import org.ops4j.sisyphos.core.config.ConfigurationFactory;
 
 import io.vavr.collection.IndexedSeq;
 import io.vavr.collection.Iterator;
@@ -50,7 +51,8 @@ public class CsvFeedSequenceBuilder extends RecordFeedSequenceBuilder<String> {
 
     @Override
     public IndexedSeq<Map<String, String>> generateRecords(ScenarioContext context) {
-        File csvFile = new File(context.getDataPath(), csvFeed.getName());
+        String dataDir = ConfigurationFactory.configuration().getDataDirectory();
+        File csvFile = new File(dataDir, csvFeed.getName());
         return Try.withResources(() -> new FileInputStream(csvFile)).of(this::readRecords).get();
     }
 

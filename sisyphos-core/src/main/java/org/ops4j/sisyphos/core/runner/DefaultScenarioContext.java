@@ -19,7 +19,6 @@ package org.ops4j.sisyphos.core.runner;
 
 import org.ops4j.sisyphos.api.action.ProtocolConfiguration;
 import org.ops4j.sisyphos.core.common.ScenarioContext;
-import org.ops4j.sisyphos.core.config.ConfigurationFactory;
 import org.ops4j.sisyphos.core.message.StatisticsMessage;
 
 import reactor.core.publisher.FluxSink;
@@ -40,13 +39,8 @@ public class DefaultScenarioContext implements ScenarioContext {
     }
 
     @Override
-    public FluxSink<StatisticsMessage> messageSink() {
+    public FluxSink<StatisticsMessage> getMessageSink() {
         return messageSink;
-    }
-
-    @Override
-    public String getDataPath() {
-        return ConfigurationFactory.configuration().getDataDirectory();
     }
 
     @Override

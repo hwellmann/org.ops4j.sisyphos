@@ -49,7 +49,7 @@ public class GroupEndFluxBuilder implements FluxBuilder {
         GroupMessage groupMessage = new GroupMessage(session.getScenario(), session.getUserId(),
             groups, group.getStartDate(), group.getEndDate(),
             group.getCumulatedResponseTime(), session.getStatus());
-        context.messageSink().next(groupMessage);
+        context.getMessageSink().next(groupMessage);
         return session;
     }
 }
