@@ -18,6 +18,7 @@
 package org.ops4j.sisyphos.api.session;
 
 import java.util.Map;
+import java.util.Set;
 
 /**
  * A session holds the state of a scenario executed by a user.
@@ -75,6 +76,15 @@ public interface Session extends Comparable<Session> {
     <T> void setAttribute(String key, T value);
 
     /**
+     * Removes the attribute with the given key from this session.
+     *
+     * @param key
+     *            attribute name
+     * @return previous attribute value, or null
+     */
+    <T> T removeAttribute(String key);
+
+    /**
      * Sets multiple attributes on this session. This is shorthand for iterating over the given map
      * entries and calling {@link #setAttribute(String, Object)} for each entry.
      *
@@ -95,4 +105,11 @@ public interface Session extends Comparable<Session> {
      * @return attribute value or null
      */
     <T> T getAttribute(String key);
+
+    /**
+     * Gets the set of attribute keys.
+     *
+     * @return key set
+     */
+    Set<String> getAttributeKeys();
 }

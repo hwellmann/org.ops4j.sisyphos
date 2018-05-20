@@ -19,11 +19,13 @@ package org.ops4j.sisyphos.core.session;
 
 import static java.util.stream.Collectors.toList;
 
+import java.util.Collections;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.ops4j.sisyphos.api.action.Group;
 import org.ops4j.sisyphos.api.session.Session;
@@ -43,7 +45,7 @@ public class SessionImpl implements ExtendedSession {
     private ExpressionEngine engine;
     private Deque<Group> groupStack = new LinkedList<Group>();
 
-    public SessionImpl(String scenario, Map<String, Object> attributes, long userId) {
+    public SessionImpl(String scenario, long userId, Map<String, Object> attributes) {
         this.scenario = scenario;
         this.attributes = attributes;
         this.userId = userId;
@@ -52,15 +54,15 @@ public class SessionImpl implements ExtendedSession {
     }
 
     public SessionImpl(String scenario, long userId) {
-        this(scenario, new HashMap<>(), userId);
+        this(scenario, userId, new HashMap<>());
     }
 
     public SessionImpl(String scenario) {
-        this(scenario, new HashMap<>(), 0);
+        this(scenario, 0, new HashMap<>());
     }
 
     public SessionImpl(long userId) {
-        this("", new HashMap<>(), userId);
+        this("", userId, new HashMap<>());
     }
 
     @Override
@@ -73,7 +75,7 @@ public class SessionImpl implements ExtendedSession {
         this.scenario = scenario;
     }
 
-    public Map<String, Object> getAttributes() {
+    public Map<String, ?> getAttributes() {
         return attributes;
     }
 
@@ -156,7 +158,7 @@ public class SessionImpl implements ExtendedSession {
         }
         Group top = groupStack.pop();
         if (!groupStack.isEmpty()) {
-            groupStack.peek().accumulateResonseTime(top.getCumulatedResponseTime());
+            groupStack.peek().accumulateResponseTime(top.getCumulatedResponseTime());
         }
         return top;
     }
@@ -171,11 +173,22 @@ public class SessionImpl implements ExtendedSession {
         if (groupStack.isEmpty()) {
             return;
         }
-        groupStack.peek().accumulateResonseTime(responseTime);
+        groupStack.peek().accumulateResponseTime(responseTime);
     }
 
     @Override
     public String toString() {
         return "SessionImpl [scenario=" + scenario + ", userId=" + userId + ", attributes=" + attributes + "]";
+    }
+
+    @Override
+    public Set<String> getAttributeKeys() {
+        return Collections.unmodifiableSet(attributes.keySet());
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T> T removeAttribute(String key) {
+        return (T) attributes.remove(key);
     }
 }

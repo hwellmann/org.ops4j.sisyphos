@@ -91,7 +91,7 @@ public class Group {
      * Add the given time to the accumulated response time.
      * @param responseTime response time in ms
      */
-    public void accumulateResonseTime(long responseTime) {
+    public void accumulateResponseTime(long responseTime) {
         this.cumulatedResponseTime += responseTime;
     }
 
