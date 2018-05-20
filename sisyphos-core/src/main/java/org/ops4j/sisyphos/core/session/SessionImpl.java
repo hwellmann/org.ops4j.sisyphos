@@ -147,18 +147,18 @@ public class SessionImpl implements ExtendedSession {
         if (groupStack.contains(group)) {
             throw new IllegalArgumentException(String.format("Group %s already exists", groupName));
         }
-        groupStack.push(group);
+        groupStack.add(group);
         return group;
     }
 
     @Override
     public Group endGroup(String groupName) {
-        if (groupStack.isEmpty() || !groupStack.peek().getName().equals(groupName)) {
+        if (groupStack.isEmpty() || !groupStack.peekLast().getName().equals(groupName)) {
             throw new IllegalArgumentException(String.format("Group on top of stack does not match %s", groupName));
         }
-        Group top = groupStack.pop();
+        Group top = groupStack.pollLast();
         if (!groupStack.isEmpty()) {
-            groupStack.peek().accumulateResponseTime(top.getCumulatedResponseTime());
+            groupStack.peekLast().accumulateResponseTime(top.getCumulatedResponseTime());
         }
         return top;
     }
@@ -173,7 +173,7 @@ public class SessionImpl implements ExtendedSession {
         if (groupStack.isEmpty()) {
             return;
         }
-        groupStack.peek().accumulateResponseTime(responseTime);
+        groupStack.peekLast().accumulateResponseTime(responseTime);
     }
 
     @Override

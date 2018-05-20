@@ -137,7 +137,7 @@ public class SessionImplTest {
 
         Group g2 = session.startGroup("g2");
         assertThat(g2.getName()).isEqualTo("g2");
-        assertThat(session.getGroupHierarchy()).containsExactly("g2", "g1");
+        assertThat(session.getGroupHierarchy()).containsExactly("g1", "g2");
         session.accumulateResponseTime(300);
         session.accumulateResponseTime(400);
         assertThat(g1.getCumulatedResponseTime()).isEqualTo(300);
@@ -162,7 +162,7 @@ public class SessionImplTest {
         session.startGroup("g1");
         assertThat(session.getGroupHierarchy()).containsExactly("g1");
         session.startGroup("g2");
-        assertThat(session.getGroupHierarchy()).containsExactly("g2", "g1");
+        assertThat(session.getGroupHierarchy()).containsExactly("g1", "g2");
 
         assertThatIllegalArgumentException().isThrownBy(() -> session.endGroup("g1"));
     }
@@ -180,7 +180,7 @@ public class SessionImplTest {
         session.startGroup("g1");
         assertThat(session.getGroupHierarchy()).containsExactly("g1");
         session.startGroup("g2");
-        assertThat(session.getGroupHierarchy()).containsExactly("g2", "g1");
+        assertThat(session.getGroupHierarchy()).containsExactly("g1", "g2");
 
         assertThatIllegalArgumentException().isThrownBy(() -> session.startGroup("g1"));
     }
