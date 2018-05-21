@@ -26,7 +26,7 @@ import org.ops4j.sisyphos.api.simulation.SimulationRegistry;
 import org.ops4j.sisyphos.core.builder.FluxBuilderAdapter;
 import org.ops4j.sisyphos.core.common.ScenarioContext;
 import org.ops4j.sisyphos.core.message.SessionEvent;
-import org.ops4j.sisyphos.core.message.SessionMessage;
+import org.ops4j.sisyphos.core.message.UserMessage;
 import org.ops4j.sisyphos.core.message.StatisticsMessage;
 import org.ops4j.sisyphos.core.runner.DefaultScenarioContext;
 import org.ops4j.sisyphos.core.session.SessionImpl;
@@ -72,11 +72,11 @@ public class LocalSimulationWorker implements SimulationWorker {
 
     private void onSessionStart(FluxSink<StatisticsMessage> messages, Session session) {
         log.info("Starting session {}", session.getUserId());
-        messages.next(new SessionMessage(session, SessionEvent.START, System.currentTimeMillis()));
+        messages.next(new UserMessage(session, SessionEvent.START, System.currentTimeMillis()));
     }
 
     private void onSessionEnd(FluxSink<StatisticsMessage> messages, Session session) {
         log.info("Terminating session {}", session.getUserId());
-        messages.next(new SessionMessage(session, SessionEvent.END, System.currentTimeMillis()));
+        messages.next(new UserMessage(session, SessionEvent.END, System.currentTimeMillis()));
     }
 }

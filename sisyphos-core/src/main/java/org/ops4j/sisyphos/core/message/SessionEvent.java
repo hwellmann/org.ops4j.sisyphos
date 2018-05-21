@@ -18,10 +18,15 @@
 package org.ops4j.sisyphos.core.message;
 
 /**
+ * Session lifecycle event.
+ *
  * @author Harald Wellmann
  *
  */
 public enum SessionEvent {
+    /** Session started. */
     START,
+
+    /** Session terminated. */
     END;
 }

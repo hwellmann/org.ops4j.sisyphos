@@ -23,25 +23,22 @@ import org.ops4j.sisyphos.api.session.Session;
 import org.ops4j.sisyphos.core.common.Adapter;
 import org.ops4j.sisyphos.core.message.GroupMessage;
 import org.ops4j.sisyphos.core.message.RequestMessage;
-import org.ops4j.sisyphos.core.message.SessionMessage;
-import org.ops4j.sisyphos.core.message.SimulationMessage;
+import org.ops4j.sisyphos.core.message.UserMessage;
+import org.ops4j.sisyphos.core.message.RunMessage;
 import org.ops4j.sisyphos.core.message.StatisticsMessage;
 
 public class MessageToStringAdapter implements Adapter<StatisticsMessage, String> {
 
     @Override
     public String adapt(StatisticsMessage t) {
-        if (t instanceof SessionMessage) {
-            return onSessionMessage((SessionMessage) t);
+        if (t instanceof UserMessage) {
+            return onSessionMessage((UserMessage) t);
         }
-        else if (t instanceof SimulationMessage) {
-            return onSimulationMessage((SimulationMessage) t);
-        }
-        else if (t instanceof RequestMessage) {
-            return onResponseMessage((RequestMessage) t);
+        else if (t instanceof RunMessage) {
+            return onSimulationMessage((RunMessage) t);
         }
         else if (t instanceof RequestMessage) {
-            return onResponseMessage((RequestMessage) t);
+            return onRequestMessage((RequestMessage) t);
         }
         else if (t instanceof GroupMessage) {
             return onGroupMessage((GroupMessage) t);
@@ -50,24 +47,24 @@ public class MessageToStringAdapter implements Adapter<StatisticsMessage, String
         throw new IllegalArgumentException(t.toString());
     }
 
-    private String onResponseMessage(RequestMessage msg) {
+    private String onRequestMessage(RequestMessage msg) {
         String group = msg.getGroups().stream().collect(joining(","));
         String message = msg.getMessage();
         return String.format("REQUEST\t%s\t%d\t%s\t%s\t%d\t%d\t%s\t%s",
             msg.getScenario(), msg.getUserId(), group, msg.getName(), msg.getRequestTimestamp(), msg.getResponseTimestamp(), msg.getStatus(), message);
     }
 
-    private String onSessionMessage(SessionMessage msg) {
+    private String onSessionMessage(UserMessage msg) {
         Session session = msg.getSession();
         return String.format("USER\t%s\t%d\t%s\t%d\t%d",
             session.getScenario(), session.getUserId(), msg.getSessionEvent(), session.getStartDate(), msg.getTimestamp());
     }
 
-    private String onSimulationMessage(SimulationMessage msg) {
+    private String onSimulationMessage(RunMessage msg) {
 
         String userDefinedId = "";
-        return String.format("RUN\t%s\t%s\t%s\t%d\t%s\t2.0",
-            msg.getSimulationName(), userDefinedId, msg.getSimulationId(), msg.getStartTime(), emptyIfNull(msg.getRunDescription()));
+        return String.format("RUN\t%s\t%s\t%s\t%d\t%s\t%s",
+            msg.getSimulationName(), userDefinedId, msg.getUserDefinedSimulationId(), msg.getStartTime(), emptyIfNull(msg.getRunDescription()), msg.getVersion());
     }
 
     private String onGroupMessage(GroupMessage msg) {

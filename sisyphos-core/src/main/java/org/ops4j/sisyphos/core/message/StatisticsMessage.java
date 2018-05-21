@@ -18,6 +18,10 @@
 package org.ops4j.sisyphos.core.message;
 
 /**
+ * Marker interface for all statistics messages.
+ * <p>
+ * These messages get collected in log files and reports.
+ *
  * @author Harald Wellmann
  *
  */

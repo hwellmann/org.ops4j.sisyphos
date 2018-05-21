@@ -27,8 +27,8 @@ import org.ops4j.sisyphos.core.common.Adapter;
 import org.ops4j.sisyphos.core.message.GroupMessage;
 import org.ops4j.sisyphos.core.message.RequestMessage;
 import org.ops4j.sisyphos.core.message.SessionEvent;
-import org.ops4j.sisyphos.core.message.SessionMessage;
-import org.ops4j.sisyphos.core.message.SimulationMessage;
+import org.ops4j.sisyphos.core.message.UserMessage;
+import org.ops4j.sisyphos.core.message.RunMessage;
 import org.ops4j.sisyphos.core.message.StatisticsMessage;
 import org.ops4j.sisyphos.core.session.ExtendedSession;
 import org.ops4j.sisyphos.core.session.SessionImpl;
@@ -41,7 +41,7 @@ public class StringToMessageAdapter implements Adapter<String, StatisticsMessage
         String type = it.next();
         switch (type) {
             case "REQUEST":
-                return buildResponseMessage(it);
+                return buildRequestMessage(it);
             case "USER":
                 return buildSessionMessage(it);
             case "RUN":
@@ -53,7 +53,7 @@ public class StringToMessageAdapter implements Adapter<String, StatisticsMessage
         }
     }
 
-    private StatisticsMessage buildResponseMessage(Iterator<String> it) {
+    private StatisticsMessage buildRequestMessage(Iterator<String> it) {
         String scenario = it.next();
         long userId = Long.parseLong(it.next());
         List<String> groups = Arrays.asList(it.next().split(","));
@@ -74,15 +74,16 @@ public class StringToMessageAdapter implements Adapter<String, StatisticsMessage
         long startTimestamp = Long.parseLong(it.next());
         ((ExtendedSession) session).setStartDate(startTimestamp);
         long endTimestamp = Long.parseLong(it.next());
-        return new SessionMessage(session, event, endTimestamp);
+        return new UserMessage(session, event, endTimestamp);
     }
 
     private StatisticsMessage buildSimulationMessage(Iterator<String> it) {
         String simulationName = it.next();
-        String simulationId = it.next();
+        String userDefinedSimulationId = it.next();
+        String defaultSimulationId = it.next();
         long startTimestamp = Long.parseLong(it.next());
         String runDescription = it.next();
-        return new SimulationMessage(simulationName, simulationId, startTimestamp, runDescription, "");
+        return new RunMessage(simulationName, userDefinedSimulationId, defaultSimulationId, startTimestamp, runDescription);
     }
 
     private StatisticsMessage buildGroupMessage(Iterator<String> it) {

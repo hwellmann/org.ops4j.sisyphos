@@ -22,6 +22,8 @@ import java.util.List;
 import org.ops4j.sisyphos.api.session.Status;
 
 /**
+ * Message emitted when a group of requests terminates.
+ *
  * @author Harald Wellmann
  *
  */
@@ -35,8 +37,26 @@ public class GroupMessage implements StatisticsMessage {
     private long cumulatedResponseTime;
     private Status status;
 
-    public GroupMessage(String scenario, long userId, List<String> groups,
-        long startTimestamp, long endTimestamp, long cumulatedResponseTime, Status status) {
+    /**
+     * Creates a group message with the given properties.
+     *
+     * @param scenario
+     *            scenario name
+     * @param userId
+     *            user identity
+     * @param groups
+     *            list of groups
+     * @param startTimestamp
+     *            group start timestamp
+     * @param endTimestamp
+     *            group end timestamp
+     * @param cumulatedResponseTime
+     *            cumulated response time for all requests
+     * @param status
+     *            session status
+     */
+    public GroupMessage(String scenario, long userId, List<String> groups, long startTimestamp,
+        long endTimestamp, long cumulatedResponseTime, Status status) {
         this.scenario = scenario;
         this.userId = userId;
         this.groups = groups;
@@ -46,6 +66,11 @@ public class GroupMessage implements StatisticsMessage {
         this.status = status;
     }
 
+    /**
+     * Gets the scenario name.
+     *
+     * @return scenario name
+     */
     public String getScenario() {
         return scenario;
     }
@@ -54,6 +79,11 @@ public class GroupMessage implements StatisticsMessage {
         this.scenario = scenario;
     }
 
+    /**
+     * Gets the user identity.
+     *
+     * @return user identity
+     */
     public long getUserId() {
         return userId;
     }
@@ -62,6 +92,12 @@ public class GroupMessage implements StatisticsMessage {
         this.userId = userId;
     }
 
+    /**
+     * Gets the list of names of this group and any enclosing groups. The <strong>last</strong>
+     * element is the name of this group.
+     *
+     * @return list of group names
+     */
     public List<String> getGroups() {
         return groups;
     }
@@ -70,6 +106,10 @@ public class GroupMessage implements StatisticsMessage {
         this.groups = groups;
     }
 
+    /**
+     * Gets the start timestamp.
+     * @return start timestamp
+     */
     public long getStartTimestamp() {
         return startTimestamp;
     }
@@ -78,6 +118,10 @@ public class GroupMessage implements StatisticsMessage {
         this.startTimestamp = startTimestamp;
     }
 
+    /**
+     * Gets the end timestamp.
+     * @return end timestamp
+     */
     public long getEndTimestamp() {
         return endTimestamp;
     }
@@ -86,6 +130,10 @@ public class GroupMessage implements StatisticsMessage {
         this.endTimestamp = endTimestamp;
     }
 
+    /**
+     * Gets the cumulated response time of all requests of this group (and nested groups).
+     * @return response time in ms
+     */
     public long getCumulatedResponseTime() {
         return cumulatedResponseTime;
     }
@@ -94,6 +142,10 @@ public class GroupMessage implements StatisticsMessage {
         this.cumulatedResponseTime = cumulatedResponseTime;
     }
 
+    /**
+     * Gets the session status.
+     * @return session status
+     */
     public Status getStatus() {
         return status;
     }

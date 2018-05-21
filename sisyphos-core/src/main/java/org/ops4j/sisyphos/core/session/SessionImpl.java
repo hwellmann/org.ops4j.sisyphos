@@ -85,7 +85,7 @@ public class SessionImpl implements ExtendedSession {
     }
 
     @Override
-    public void setUserId(Long userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 

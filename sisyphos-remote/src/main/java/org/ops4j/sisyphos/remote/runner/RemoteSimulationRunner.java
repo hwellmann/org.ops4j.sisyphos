@@ -36,7 +36,7 @@ import org.ops4j.sisyphos.api.simulation.UserBuilder;
 import org.ops4j.sisyphos.core.builder.UserFluxBuilder;
 import org.ops4j.sisyphos.core.config.ConfigurationFactory;
 import org.ops4j.sisyphos.core.log.LogSubscriber;
-import org.ops4j.sisyphos.core.message.SimulationMessage;
+import org.ops4j.sisyphos.core.message.RunMessage;
 import org.ops4j.sisyphos.core.message.StatisticsMessage;
 import org.ops4j.sisyphos.core.runner.ConcurrentUtil;
 import org.ops4j.sisyphos.core.session.ExtendedSession;
@@ -95,8 +95,8 @@ public class RemoteSimulationRunner implements SimulationRunner {
             .flatMap(s -> s.getUserBuilders());
         int numUsers = userBuilders.map(u -> u.getNumUsers()).sum().intValue();
 
-        messages.next(new SimulationMessage(simulation.getName(), simulation.getId(),
-            System.currentTimeMillis(), simulation.getRunDescription(), simulation.getReportDir()));
+        messages.next(new RunMessage(simulation.getName(), "", simulation.getId(),
+            System.currentTimeMillis(), simulation.getRunDescription()));
 
         CountDownLatch latch = new CountDownLatch(numUsers);
         simulation.getScenarioBuilders().forEach(s -> runScenario(s, latch, simulation.getName()));

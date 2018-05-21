@@ -22,6 +22,8 @@ import java.util.List;
 import org.ops4j.sisyphos.api.session.Status;
 
 /**
+ * Message emitted after completion of a request.
+ *
  * @author Harald Wellmann
  *
  */
@@ -36,6 +38,24 @@ public class RequestMessage implements StatisticsMessage {
     private Status status;
     private String message;
 
+    /**
+     * Constructs a request message with the given properties.
+     *
+     * @param scenario
+     *            scenario name
+     * @param userId
+     *            user identity
+     * @param groups
+     *            group hierarchy of this request
+     * @param name
+     *            request name
+     * @param requestTimestamp
+     *            timestamp of request
+     * @param responseTimestamp
+     *            timestamp of response
+     * @param status
+     *            session status
+     */
     public RequestMessage(String scenario, long userId, List<String> groups, String name,
         long requestTimestamp, long responseTimestamp, Status status) {
         this.scenario = scenario;
@@ -47,6 +67,10 @@ public class RequestMessage implements StatisticsMessage {
         this.status = status;
     }
 
+    /**
+     * Gets the scenario name.
+     * @return scenario name
+     */
     public String getScenario() {
         return scenario;
     }
@@ -55,6 +79,10 @@ public class RequestMessage implements StatisticsMessage {
         this.scenario = scenario;
     }
 
+    /**
+     * Gets the user identity.
+     * @return user identity
+     */
     public long getUserId() {
         return userId;
     }
@@ -63,6 +91,10 @@ public class RequestMessage implements StatisticsMessage {
         this.userId = userId;
     }
 
+    /**
+     * Gets the group hierarchy (from outer to inner).
+     * @return list of group names
+     */
     public List<String> getGroups() {
         return groups;
     }
@@ -71,6 +103,10 @@ public class RequestMessage implements StatisticsMessage {
         this.groups = groups;
     }
 
+    /**
+     * Gets the name of this request.
+     * @return request name
+     */
     public String getName() {
         return name;
     }
@@ -79,6 +115,10 @@ public class RequestMessage implements StatisticsMessage {
         this.name = name;
     }
 
+    /**
+     * Gets the timestamp taken just before sending the request.
+     * @return request timestamp
+     */
     public long getRequestTimestamp() {
         return requestTimestamp;
     }
@@ -87,6 +127,10 @@ public class RequestMessage implements StatisticsMessage {
         this.requestTimestamp = requestTimestamp;
     }
 
+    /**
+     * Gets the timestamp taken just after receiving the response.
+     * @param response timestamp
+     */
     public long getResponseTimestamp() {
         return responseTimestamp;
     }
@@ -95,6 +139,10 @@ public class RequestMessage implements StatisticsMessage {
         this.responseTimestamp = responseTimestamp;
     }
 
+    /**
+     * Gets the session status.
+     * @return session status
+     */
     public Status getStatus() {
         return status;
     }
@@ -103,6 +151,10 @@ public class RequestMessage implements StatisticsMessage {
         this.status = status;
     }
 
+    /**
+     * Gets an error message, if the session is failed.
+     * @return error message
+     */
     public String getMessage() {
         return message;
     }

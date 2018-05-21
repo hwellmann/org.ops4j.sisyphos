@@ -23,7 +23,7 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 
 import org.ops4j.sisyphos.core.config.ConfigurationFactory;
-import org.ops4j.sisyphos.core.message.SimulationMessage;
+import org.ops4j.sisyphos.core.message.RunMessage;
 import org.ops4j.sisyphos.core.message.StatisticsMessage;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
@@ -50,18 +50,15 @@ public class LogSubscriber implements Subscriber<StatisticsMessage> {
 
     @Override
     public void onNext(StatisticsMessage t) {
-        if (t instanceof SimulationMessage) {
-            openWriter((SimulationMessage) t);
+        if (t instanceof RunMessage) {
+            openWriter((RunMessage) t);
         }
         writer.println(adapter.adapt(t));
     }
 
-    private void openWriter(SimulationMessage msg) {
+    private void openWriter(RunMessage msg) {
         String reportPath = ConfigurationFactory.configuration().getReportsDirectory();
-        String subdir = msg.getReportDir();
-        if (subdir == null) {
-            subdir = String.format("%s-%d", msg.getSimulationId(), msg.getStartTime());
-        }
+        String subdir = String.format("%s-%d", msg.getUserDefinedSimulationId(), msg.getStartTime());
         File reportDir = new File(reportPath, subdir);
         if (!reportDir.exists() && !reportDir.mkdirs()) {
             log.error("Cannot create report directory {}", reportDir);

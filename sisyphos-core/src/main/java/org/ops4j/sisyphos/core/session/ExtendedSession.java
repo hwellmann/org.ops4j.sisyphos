@@ -24,22 +24,75 @@ import org.ops4j.sisyphos.api.session.Session;
 import org.ops4j.sisyphos.api.session.Status;
 
 /**
+ * Extended session interface with some additional methods that may be used by other Sisyphos
+ * components, but not by user code.
+ *
  * @author Harald Wellmann
  *
  */
 public interface ExtendedSession extends Session {
 
+    /**
+     * Sets the scenario name.
+     *
+     * @param scenario
+     *            scenario name
+     */
     void setScenario(String scenario);
 
-    void setUserId(Long userId);
+    /**
+     * Sets the user identity
+     *
+     * @param userId
+     */
+    void setUserId(long userId);
 
+    /**
+     * Sets the start timestamp
+     *
+     * @param startDate
+     *            start timestamp
+     */
     void setStartDate(long startDate);
 
+    /**
+     * Sets the status.
+     *
+     * @param status
+     *            session status
+     */
     void setStatus(Status status);
 
+    /**
+     * Starts the group with the given name and pushes it on the internal group stack.
+     *
+     * @param groupName
+     *            group name
+     * @return new group
+     */
     Group startGroup(String groupName);
-    Group endGroup(String groupName);
-    List<String> getGroupHierarchy();
-    void accumulateResponseTime(long responseTime);
 
+    /**
+     * Ends the group with the given name.
+     *
+     * @param groupName
+     *            group name
+     * @return group popped from the stack
+     */
+    Group endGroup(String groupName);
+
+    /**
+     * Gets the current group names, outermost (oldest) first.
+     *
+     * @return list of group names, empty when no group is active
+     */
+    List<String> getGroupHierarchy();
+
+    /**
+     * Accumulates response time for the current group.
+     *
+     * @param responseTime
+     *            response time to be added to the value accumulated so far
+     */
+    void accumulateResponseTime(long responseTime);
 }

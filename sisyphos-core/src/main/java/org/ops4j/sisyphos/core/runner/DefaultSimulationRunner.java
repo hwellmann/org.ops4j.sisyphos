@@ -31,8 +31,8 @@ import org.ops4j.sisyphos.core.builder.UserFluxBuilder;
 import org.ops4j.sisyphos.core.common.ScenarioContext;
 import org.ops4j.sisyphos.core.log.LogSubscriber;
 import org.ops4j.sisyphos.core.message.SessionEvent;
-import org.ops4j.sisyphos.core.message.SessionMessage;
-import org.ops4j.sisyphos.core.message.SimulationMessage;
+import org.ops4j.sisyphos.core.message.UserMessage;
+import org.ops4j.sisyphos.core.message.RunMessage;
 import org.ops4j.sisyphos.core.message.StatisticsMessage;
 import org.ops4j.sisyphos.core.session.ExtendedSession;
 import org.ops4j.sisyphos.core.session.SessionImpl;
@@ -70,8 +70,8 @@ public class DefaultSimulationRunner implements SimulationRunner {
         List<UserBuilder> userBuilders = simulation.getScenarioBuilders().flatMap(s -> s.getUserBuilders());
         int numUsers = userBuilders.map(u -> u.getNumUsers()).sum().intValue();
 
-        messages.next(new SimulationMessage(simulation.getName(), simulation.getId(), System.currentTimeMillis(),
-            simulation.getRunDescription(), simulation.getReportDir()));
+        messages.next(new RunMessage(simulation.getName(), "", simulation.getId(), System.currentTimeMillis(),
+            simulation.getRunDescription()));
 
         CountDownLatch latch = new CountDownLatch(numUsers);
         simulation.getScenarioBuilders().forEach(s -> runScenario(s, context, latch));
@@ -125,7 +125,7 @@ public class DefaultSimulationRunner implements SimulationRunner {
      * @return
      */
     private void onSessionEnd(Session session, CountDownLatch latch) {
-        messages.next(new SessionMessage(session, SessionEvent.END, System.currentTimeMillis()));
+        messages.next(new UserMessage(session, SessionEvent.END, System.currentTimeMillis()));
         latch.countDown();
     }
 
@@ -136,6 +136,6 @@ public class DefaultSimulationRunner implements SimulationRunner {
      */
     private void onSessionStart(String scenarioName, Session session) {
         ((ExtendedSession) session).setScenario(scenarioName);
-        messages.next(new SessionMessage(session, SessionEvent.START, System.currentTimeMillis()));
+        messages.next(new UserMessage(session, SessionEvent.START, System.currentTimeMillis()));
     }
 }
