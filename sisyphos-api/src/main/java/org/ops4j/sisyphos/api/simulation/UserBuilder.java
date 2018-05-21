@@ -61,6 +61,8 @@ public class UserBuilder {
      * After starting a session, Sisyphos will wait for the given duration before starting the next
      * one.
      *
+     * @param interval
+     *            interval between sessions
      * @return this builder
      */
     public UserBuilder atInterval(Duration interval) {

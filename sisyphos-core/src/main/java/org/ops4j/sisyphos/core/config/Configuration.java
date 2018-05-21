@@ -37,7 +37,7 @@ public interface Configuration {
     /**
      * Gets the directory for logs and reports created by Sisyphos. Each simulation
      * run creates a subdirectory of this directory which will contain all simulation output.
-     * @return
+     * @return reports directory
      */
     @Config("sisyphos.directory.reports")
     String getReportsDirectory();
@@ -45,7 +45,7 @@ public interface Configuration {
     /**
      * Gets the directory which contains input templates for payloads. The templates may contain
      * placeholder to be interpolated with session attributes.
-     * @return
+     * @return template directory
      */
     @Config("sisyphos.directory.template")
     String getTemplateDirectory();

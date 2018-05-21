@@ -129,7 +129,7 @@ public class RequestMessage implements StatisticsMessage {
 
     /**
      * Gets the timestamp taken just after receiving the response.
-     * @param response timestamp
+     * @return response timestamp
      */
     public long getResponseTimestamp() {
         return responseTimestamp;

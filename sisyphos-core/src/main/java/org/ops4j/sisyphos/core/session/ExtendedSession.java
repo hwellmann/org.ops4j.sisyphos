@@ -44,6 +44,7 @@ public interface ExtendedSession extends Session {
      * Sets the user identity
      *
      * @param userId
+     *            user identity
      */
     void setUserId(long userId);
 

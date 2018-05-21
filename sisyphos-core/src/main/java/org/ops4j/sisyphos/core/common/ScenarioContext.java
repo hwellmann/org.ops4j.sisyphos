@@ -42,6 +42,8 @@ public interface ScenarioContext {
      *
      * @param klass
      *            configuration class for a specific protocol (e.g. HTTP)
+     * @param <T>
+     *            protocol configuration class
      * @return protocol configuration
      */
     <T extends ProtocolConfiguration> T getProtocolConfiguration(Class<T> klass);
