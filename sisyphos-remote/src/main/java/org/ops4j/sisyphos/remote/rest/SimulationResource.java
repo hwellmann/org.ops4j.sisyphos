@@ -59,7 +59,7 @@ public class SimulationResource {
         SimulationBuilder simulation = SimulationRegistry.find(simulationName)
             .getOrElseThrow(() -> new IllegalArgumentException("Simulation not found:" + simulationName));
 
-        runner.setSubscriber(new OutputStreamSubscriber(os));
+        runner.addMessageSubscriber(new OutputStreamSubscriber(os));
         runner.runSimulation(simulation);
     }
 }

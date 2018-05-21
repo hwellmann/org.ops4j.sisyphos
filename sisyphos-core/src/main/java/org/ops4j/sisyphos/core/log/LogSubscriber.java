@@ -42,6 +42,13 @@ public class LogSubscriber implements Subscriber<StatisticsMessage> {
 
     private MessageToStringAdapter adapter;
 
+    private String subdirectory;
+
+
+    public LogSubscriber(String subdirectory) {
+        this.subdirectory = subdirectory;
+    }
+
     @Override
     public void onSubscribe(Subscription s) {
         s.request(Long.MAX_VALUE);
@@ -58,12 +65,7 @@ public class LogSubscriber implements Subscriber<StatisticsMessage> {
 
     private void openWriter(RunMessage msg) {
         String reportPath = ConfigurationFactory.configuration().getReportsDirectory();
-        String simulationId = msg.getUserDefinedSimulationId();
-        if (simulationId == null || simulationId.isEmpty()) {
-            simulationId = msg.getDefaultSimulationId();
-        }
-        String subdir = String.format("%s-%d", simulationId, msg.getStartTime());
-        File reportDir = new File(reportPath, subdir);
+        File reportDir = new File(reportPath, getSubdirectoryOrFallback(msg));
         if (!reportDir.exists() && !reportDir.mkdirs()) {
             log.error("Cannot create report directory {}", reportDir);
             return;
@@ -75,6 +77,18 @@ public class LogSubscriber implements Subscriber<StatisticsMessage> {
         catch (IOException exc) {
             log.error("Cannot open log file", exc);
         }
+    }
+
+    private String getSubdirectoryOrFallback(RunMessage msg) {
+
+        if (subdirectory == null) {
+            String simulationId = msg.getUserDefinedSimulationId();
+            if (simulationId == null || simulationId.isEmpty()) {
+                simulationId = msg.getDefaultSimulationId();
+            }
+            subdirectory = String.format("%s-%d", simulationId, msg.getStartTime());
+        }
+        return subdirectory;
     }
 
     @Override

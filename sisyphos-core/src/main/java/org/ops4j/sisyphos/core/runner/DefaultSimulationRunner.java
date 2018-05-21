@@ -24,7 +24,6 @@ import java.util.logging.Level;
 import org.ops4j.sisyphos.api.session.Session;
 import org.ops4j.sisyphos.api.simulation.ScenarioBuilder;
 import org.ops4j.sisyphos.api.simulation.SimulationBuilder;
-import org.ops4j.sisyphos.api.simulation.SimulationRunner;
 import org.ops4j.sisyphos.api.simulation.UserBuilder;
 import org.ops4j.sisyphos.core.builder.FluxBuilderAdapter;
 import org.ops4j.sisyphos.core.builder.UserFluxBuilder;
@@ -36,6 +35,7 @@ import org.ops4j.sisyphos.core.message.StatisticsMessage;
 import org.ops4j.sisyphos.core.message.UserMessage;
 import org.ops4j.sisyphos.core.session.ExtendedSession;
 import org.ops4j.sisyphos.core.session.SessionImpl;
+import org.reactivestreams.Subscriber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,20 +51,17 @@ import reactor.core.scheduler.Schedulers;
  * @author Harald Wellmann
  *
  */
-public class DefaultSimulationRunner implements SimulationRunner {
+public class DefaultSimulationRunner extends AbstractSimulationRunner {
 
     private static Logger log = LoggerFactory.getLogger(DefaultSimulationRunner.class);
 
     private FluxSink<StatisticsMessage> messages;
 
-    private LogSubscriber logSubscriber;
-
-
     @Override
     public void runSimulation(SimulationBuilder simulation) {
         log.info("Running simulation {}", simulation.getName());
 
-        openMessages();
+        openMessages(simulation.getReportDir());
 
         ScenarioContext context = new DefaultScenarioContext(messages, simulation.getProtocolConfiguration());
 
@@ -107,19 +104,19 @@ public class DefaultSimulationRunner implements SimulationRunner {
         simulation.subscribe(s -> {}, Throwable::printStackTrace);
     }
 
-    private void openMessages() {
+    private void openMessages(String reportDir) {
         EmitterProcessor<StatisticsMessage> processor = EmitterProcessor.create();
         messages = processor.sink();
         ConnectableFlux<StatisticsMessage> connectableFlux = processor.publish();
 
-        logSubscriber = new LogSubscriber();
-        connectableFlux.subscribe(logSubscriber);
+        addMessageSubscriber(new LogSubscriber(reportDir));
+        getMessageSubscribers().forEach(connectableFlux::subscribe);
         connectableFlux.connect();
     }
 
     private void closeMessages() {
         messages.complete();
-        logSubscriber.onComplete();
+        getMessageSubscribers().forEach(Subscriber::onComplete);
     }
 
 

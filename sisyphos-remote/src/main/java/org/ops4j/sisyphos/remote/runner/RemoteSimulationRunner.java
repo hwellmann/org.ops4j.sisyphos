@@ -31,13 +31,13 @@ import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.ops4j.sisyphos.api.session.Session;
 import org.ops4j.sisyphos.api.simulation.ScenarioBuilder;
 import org.ops4j.sisyphos.api.simulation.SimulationBuilder;
-import org.ops4j.sisyphos.api.simulation.SimulationRunner;
 import org.ops4j.sisyphos.api.simulation.UserBuilder;
 import org.ops4j.sisyphos.core.builder.UserFluxBuilder;
 import org.ops4j.sisyphos.core.config.ConfigurationFactory;
 import org.ops4j.sisyphos.core.log.LogSubscriber;
 import org.ops4j.sisyphos.core.message.RunMessage;
 import org.ops4j.sisyphos.core.message.StatisticsMessage;
+import org.ops4j.sisyphos.core.runner.AbstractSimulationRunner;
 import org.ops4j.sisyphos.core.runner.ConcurrentUtil;
 import org.ops4j.sisyphos.core.session.ExtendedSession;
 import org.reactivestreams.Subscriber;
@@ -45,6 +45,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.vavr.collection.List;
+import reactor.core.publisher.ConnectableFlux;
 import reactor.core.publisher.EmitterProcessor;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.FluxSink;
@@ -52,15 +53,13 @@ import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
 @RequestScoped
-public class RemoteSimulationRunner implements SimulationRunner {
+public class RemoteSimulationRunner extends AbstractSimulationRunner {
 
     private static final int NUM_CONNECTIONS = 100;
 
     private static Logger log = LoggerFactory.getLogger(RemoteSimulationRunner.class);
 
     private FluxSink<StatisticsMessage> messages;
-
-    private Subscriber<StatisticsMessage> logSubscriber;
 
     private Client client;
 
@@ -72,7 +71,6 @@ public class RemoteSimulationRunner implements SimulationRunner {
     public void init() {
         this.client = new ResteasyClientBuilder().connectionPoolSize(NUM_CONNECTIONS)
             .maxPooledPerRoute(NUM_CONNECTIONS).build();
-        this.logSubscriber = new LogSubscriber();
         this.workerUris = ConfigurationFactory.configuration().getWorkerUri().split(",");
     }
 
@@ -81,15 +79,11 @@ public class RemoteSimulationRunner implements SimulationRunner {
         client.close();
     }
 
-    public void setSubscriber(Subscriber<StatisticsMessage> subscriber) {
-        this.logSubscriber = subscriber;
-    }
-
     @Override
     public void runSimulation(SimulationBuilder simulation) {
         log.info("running simulation {}", simulation.getName());
 
-        openMessages();
+        openMessages(simulation.getReportDir());
 
         List<UserBuilder> userBuilders = simulation.getScenarioBuilders()
             .flatMap(s -> s.getUserBuilders());
@@ -133,14 +127,18 @@ public class RemoteSimulationRunner implements SimulationRunner {
         return new JaxRsSimulationWorker(target);
     }
 
-    private void openMessages() {
+    private void openMessages(String reportDir) {
         EmitterProcessor<StatisticsMessage> processor = EmitterProcessor.create();
         messages = processor.sink();
-        processor.subscribe(logSubscriber);
+        ConnectableFlux<StatisticsMessage> connectableFlux = processor.publish();
+
+        addMessageSubscriber(new LogSubscriber(reportDir));
+        getMessageSubscribers().forEach(connectableFlux::subscribe);
+        connectableFlux.connect();
     }
 
     private void closeMessages() {
         messages.complete();
-        logSubscriber.onComplete();
+        getMessageSubscribers().forEach(Subscriber::onComplete);
     }
 }
