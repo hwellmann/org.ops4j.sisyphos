@@ -32,7 +32,7 @@ import javax.ws.rs.core.StreamingOutput;
 
 import org.ops4j.sisyphos.api.simulation.SimulationBuilder;
 import org.ops4j.sisyphos.api.simulation.SimulationRegistry;
-import org.ops4j.sisyphos.remote.runner.OutputStreamSubscriber;
+import org.ops4j.sisyphos.core.log.OutputStreamSubscriber;
 import org.ops4j.sisyphos.remote.runner.RemoteSimulationRunner;
 
 @ApplicationScoped

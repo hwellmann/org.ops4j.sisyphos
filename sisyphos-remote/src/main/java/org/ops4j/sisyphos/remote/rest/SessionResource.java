@@ -29,10 +29,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.StreamingOutput;
 
+import org.ops4j.sisyphos.core.log.OutputStreamSubscriber;
 import org.ops4j.sisyphos.core.message.StatisticsMessage;
 import org.ops4j.sisyphos.core.runner.ConcurrentUtil;
 import org.ops4j.sisyphos.remote.runner.LocalSimulationWorker;
-import org.ops4j.sisyphos.remote.runner.OutputStreamSubscriber;
 import org.ops4j.sisyphos.remote.runner.SimulationWorker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

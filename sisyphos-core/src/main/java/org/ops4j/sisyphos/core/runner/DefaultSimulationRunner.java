@@ -30,16 +30,17 @@ import org.ops4j.sisyphos.core.builder.FluxBuilderAdapter;
 import org.ops4j.sisyphos.core.builder.UserFluxBuilder;
 import org.ops4j.sisyphos.core.common.ScenarioContext;
 import org.ops4j.sisyphos.core.log.LogSubscriber;
-import org.ops4j.sisyphos.core.message.SessionEvent;
-import org.ops4j.sisyphos.core.message.UserMessage;
 import org.ops4j.sisyphos.core.message.RunMessage;
+import org.ops4j.sisyphos.core.message.SessionEvent;
 import org.ops4j.sisyphos.core.message.StatisticsMessage;
+import org.ops4j.sisyphos.core.message.UserMessage;
 import org.ops4j.sisyphos.core.session.ExtendedSession;
 import org.ops4j.sisyphos.core.session.SessionImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.vavr.collection.List;
+import reactor.core.publisher.ConnectableFlux;
 import reactor.core.publisher.EmitterProcessor;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.FluxSink;
@@ -109,8 +110,11 @@ public class DefaultSimulationRunner implements SimulationRunner {
     private void openMessages() {
         EmitterProcessor<StatisticsMessage> processor = EmitterProcessor.create();
         messages = processor.sink();
+        ConnectableFlux<StatisticsMessage> connectableFlux = processor.publish();
+
         logSubscriber = new LogSubscriber();
-        processor.subscribe(logSubscriber);
+        connectableFlux.subscribe(logSubscriber);
+        connectableFlux.connect();
     }
 
     private void closeMessages() {

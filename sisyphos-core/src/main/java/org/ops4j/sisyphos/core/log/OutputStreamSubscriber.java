@@ -15,12 +15,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ops4j.sisyphos.remote.runner;
+package org.ops4j.sisyphos.core.log;
 
 import java.io.OutputStream;
 import java.io.PrintWriter;
 
-import org.ops4j.sisyphos.core.log.MessageToStringAdapter;
 import org.ops4j.sisyphos.core.message.StatisticsMessage;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
