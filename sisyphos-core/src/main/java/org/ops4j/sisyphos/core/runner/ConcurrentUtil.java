@@ -23,6 +23,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * Concurrency utilities.
+ *
  * @author Harald Wellmann
  *
  */
@@ -30,11 +32,18 @@ public final class ConcurrentUtil {
 
     private static Logger log = LoggerFactory.getLogger(ConcurrentUtil.class);
 
-
     private ConcurrentUtil() {
         // hidden constructor
     }
 
+    /**
+     * Waits for the given latch.
+     * <p>
+     * This is a convenience method which encapsulates exception handling.
+     *
+     * @param latch
+     *            latch to wait for
+     */
     public static void waitFor(CountDownLatch latch) {
         try {
             latch.await();
