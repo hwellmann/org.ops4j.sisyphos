@@ -32,10 +32,10 @@ public class MessageToStringAdapter implements Adapter<StatisticsMessage, String
     @Override
     public String adapt(StatisticsMessage t) {
         if (t instanceof UserMessage) {
-            return onSessionMessage((UserMessage) t);
+            return onUserMessage((UserMessage) t);
         }
         else if (t instanceof RunMessage) {
-            return onSimulationMessage((RunMessage) t);
+            return onRunMessage((RunMessage) t);
         }
         else if (t instanceof RequestMessage) {
             return onRequestMessage((RequestMessage) t);
@@ -54,13 +54,13 @@ public class MessageToStringAdapter implements Adapter<StatisticsMessage, String
             msg.getScenario(), msg.getUserId(), group, msg.getName(), msg.getRequestTimestamp(), msg.getResponseTimestamp(), msg.getStatus(), emptyIfNull(message));
     }
 
-    private String onSessionMessage(UserMessage msg) {
+    private String onUserMessage(UserMessage msg) {
         Session session = msg.getSession();
         return String.format("USER\t%s\t%d\t%s\t%d\t%d",
             session.getScenario(), session.getUserId(), msg.getSessionEvent(), session.getStartDate(), msg.getTimestamp());
     }
 
-    private String onSimulationMessage(RunMessage msg) {
+    private String onRunMessage(RunMessage msg) {
 
         return String.format("RUN\t%s\t%s\t%s\t%d\t%s\t%s",
             msg.getSimulationName(), msg.getUserDefinedSimulationId(), msg.getDefaultSimulationId(), msg.getStartTime(), emptyIfNull(msg.getRunDescription()), msg.getVersion());

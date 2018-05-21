@@ -43,9 +43,9 @@ public class StringToMessageAdapter implements Adapter<String, StatisticsMessage
             case "REQUEST":
                 return buildRequestMessage(it);
             case "USER":
-                return buildSessionMessage(it);
+                return buildUserMessage(it);
             case "RUN":
-                return buildSimulationMessage(it);
+                return buildRunMessage(it);
             case "GROUP":
                 return buildGroupMessage(it);
             default:
@@ -66,7 +66,7 @@ public class StringToMessageAdapter implements Adapter<String, StatisticsMessage
             responseTimestamp, status);
     }
 
-    private StatisticsMessage buildSessionMessage(Iterator<String> it) {
+    private StatisticsMessage buildUserMessage(Iterator<String> it) {
         String scenario = it.next();
         long userId = Long.parseLong(it.next());
         Session session = new SessionImpl(scenario, userId);
@@ -77,7 +77,7 @@ public class StringToMessageAdapter implements Adapter<String, StatisticsMessage
         return new UserMessage(session, event, endTimestamp);
     }
 
-    private StatisticsMessage buildSimulationMessage(Iterator<String> it) {
+    private StatisticsMessage buildRunMessage(Iterator<String> it) {
         String simulationName = it.next();
         String userDefinedSimulationId = it.next();
         String defaultSimulationId = it.next();
