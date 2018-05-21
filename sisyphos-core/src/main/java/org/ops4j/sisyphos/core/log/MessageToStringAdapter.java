@@ -23,9 +23,9 @@ import org.ops4j.sisyphos.api.session.Session;
 import org.ops4j.sisyphos.core.common.Adapter;
 import org.ops4j.sisyphos.core.message.GroupMessage;
 import org.ops4j.sisyphos.core.message.RequestMessage;
-import org.ops4j.sisyphos.core.message.UserMessage;
 import org.ops4j.sisyphos.core.message.RunMessage;
 import org.ops4j.sisyphos.core.message.StatisticsMessage;
+import org.ops4j.sisyphos.core.message.UserMessage;
 
 public class MessageToStringAdapter implements Adapter<StatisticsMessage, String> {
 
@@ -51,7 +51,7 @@ public class MessageToStringAdapter implements Adapter<StatisticsMessage, String
         String group = msg.getGroups().stream().collect(joining(","));
         String message = msg.getMessage();
         return String.format("REQUEST\t%s\t%d\t%s\t%s\t%d\t%d\t%s\t%s",
-            msg.getScenario(), msg.getUserId(), group, msg.getName(), msg.getRequestTimestamp(), msg.getResponseTimestamp(), msg.getStatus(), message);
+            msg.getScenario(), msg.getUserId(), group, msg.getName(), msg.getRequestTimestamp(), msg.getResponseTimestamp(), msg.getStatus(), emptyIfNull(message));
     }
 
     private String onSessionMessage(UserMessage msg) {
@@ -62,9 +62,8 @@ public class MessageToStringAdapter implements Adapter<StatisticsMessage, String
 
     private String onSimulationMessage(RunMessage msg) {
 
-        String userDefinedId = "";
         return String.format("RUN\t%s\t%s\t%s\t%d\t%s\t%s",
-            msg.getSimulationName(), userDefinedId, msg.getUserDefinedSimulationId(), msg.getStartTime(), emptyIfNull(msg.getRunDescription()), msg.getVersion());
+            msg.getSimulationName(), msg.getUserDefinedSimulationId(), msg.getDefaultSimulationId(), msg.getStartTime(), emptyIfNull(msg.getRunDescription()), msg.getVersion());
     }
 
     private String onGroupMessage(GroupMessage msg) {

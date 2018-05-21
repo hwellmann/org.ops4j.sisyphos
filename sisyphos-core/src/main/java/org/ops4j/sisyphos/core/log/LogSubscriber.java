@@ -58,7 +58,11 @@ public class LogSubscriber implements Subscriber<StatisticsMessage> {
 
     private void openWriter(RunMessage msg) {
         String reportPath = ConfigurationFactory.configuration().getReportsDirectory();
-        String subdir = String.format("%s-%d", msg.getUserDefinedSimulationId(), msg.getStartTime());
+        String simulationId = msg.getUserDefinedSimulationId();
+        if (simulationId == null || simulationId.isEmpty()) {
+            simulationId = msg.getDefaultSimulationId();
+        }
+        String subdir = String.format("%s-%d", simulationId, msg.getStartTime());
         File reportDir = new File(reportPath, subdir);
         if (!reportDir.exists() && !reportDir.mkdirs()) {
             log.error("Cannot create report directory {}", reportDir);
