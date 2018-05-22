@@ -17,7 +17,6 @@
  */
 package org.ops4j.sisyphos.core.builder;
 
-
 import org.ops4j.sisyphos.api.session.Action;
 import org.ops4j.sisyphos.api.session.Session;
 
@@ -25,14 +24,22 @@ import io.vavr.collection.Iterator;
 import io.vavr.collection.Map;
 
 /**
+ * Action which consumes an attribute map from a feed and stores the attibutes in the current
+ * session.
+ *
  * @author Harald Wellmann
  *
  */
 public class ConsumeAction<F> implements Action {
 
-
     private Iterator<Map<String, F>> feed;
 
+    /**
+     * Creates a consume action for the given feed.
+     *
+     * @param feed
+     *            feed to be consumed
+     */
     public ConsumeAction(Iterator<Map<String, F>> feed) {
         this.feed = feed;
     }

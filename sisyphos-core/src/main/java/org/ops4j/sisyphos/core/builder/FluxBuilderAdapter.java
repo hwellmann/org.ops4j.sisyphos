@@ -21,11 +21,23 @@ import org.ops4j.sisyphos.api.action.ActionBuilder;
 import org.ops4j.sisyphos.core.common.Adapter;
 import org.ops4j.spi.ServiceProviderFinder;
 
+/**
+ * Adapts an {@link ActionBuilder} to a {@link FluxBuilder}.
+ * <p>
+ * The purpose of this class is avoid a dependency of the API module from the Reactor framework.
+ * <p>
+ * The Core module and other extension modules may contribute adapters via the
+ * {@link FluxBuilderAdapterSpi.class}.
+ *
+ * @author Harald Wellmann
+ *
+ */
 public class FluxBuilderAdapter implements Adapter<ActionBuilder, FluxBuilder> {
 
     @Override
     public FluxBuilder adapt(ActionBuilder actionBuilder) {
-        for (FluxBuilderAdapterSpi adapter : ServiceProviderFinder.findServiceProviders(FluxBuilderAdapterSpi.class)) {
+        for (FluxBuilderAdapterSpi adapter : ServiceProviderFinder
+            .findServiceProviders(FluxBuilderAdapterSpi.class)) {
             FluxBuilder fluxBuilder = adapter.adapt(actionBuilder);
             if (fluxBuilder != null) {
                 return fluxBuilder;

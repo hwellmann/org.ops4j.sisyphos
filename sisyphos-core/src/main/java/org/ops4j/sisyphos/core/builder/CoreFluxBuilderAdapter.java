@@ -32,6 +32,13 @@ import org.ops4j.sisyphos.api.action.RequestActionBuilder;
 import org.ops4j.sisyphos.api.action.RetryBuilder;
 import org.ops4j.sisyphos.api.simulation.ScenarioBuilder;
 
+/**
+ * Flux builder adapter provider for the Core module.
+ * <p>
+ * Provides the matching flux builder adapter for a given action builder from the API module.
+ * @author Harald Wellmann
+ *
+ */
 public class CoreFluxBuilderAdapter implements FluxBuilderAdapterSpi {
 
     @Override

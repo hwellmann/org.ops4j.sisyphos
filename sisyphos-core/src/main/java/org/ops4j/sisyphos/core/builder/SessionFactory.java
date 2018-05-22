@@ -21,13 +21,24 @@ import org.ops4j.sisyphos.api.session.Session;
 import org.ops4j.spi.ServiceProviderFinder;
 
 /**
+ * Factory for virtual user sesssions.
+ *
  * @author Harald Wellmann
  *
  */
 public interface SessionFactory {
 
+    /**
+     * Creates a session for the given virtual user identity.
+     * @param userId user identity
+     * @return user session
+     */
     Session newSession(long userId);
 
+    /**
+     * Creates a session factory.
+     * @return session factory
+     */
     static SessionFactory create() {
         return ServiceProviderFinder.loadUniqueServiceProvider(SessionFactory.class);
     }

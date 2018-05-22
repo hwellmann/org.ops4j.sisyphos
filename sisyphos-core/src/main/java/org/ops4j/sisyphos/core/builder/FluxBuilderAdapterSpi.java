@@ -20,6 +20,19 @@ package org.ops4j.sisyphos.core.builder;
 import org.ops4j.sisyphos.api.action.ActionBuilder;
 import org.ops4j.sisyphos.core.common.Adapter;
 
+/**
+ * Service provider interface for extension modules to provide flux builder adapters for action
+ * builders.
+ */
 public interface FluxBuilderAdapterSpi extends Adapter<ActionBuilder, FluxBuilder> {
+
+    /**
+     * Provides a flux builder which can handle the given type of action builder.
+     *
+     * @return matching flux builder, or null if the given type of action builder cannot be handled
+     *         by this provider
+     */
+    @Override
+    FluxBuilder adapt(ActionBuilder source);
 
 }

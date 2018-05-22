@@ -25,15 +25,33 @@ import org.ops4j.sisyphos.api.simulation.UserBuilder;
 import reactor.core.publisher.Flux;
 import reactor.core.scheduler.Schedulers;
 
+/**
+ * Builds a session flux from a given user builder.
+ *
+ * @author Harald Wellmann
+ *
+ */
 public class UserFluxBuilder {
-
 
     private UserBuilder userBuilder;
 
+    /**
+     * Creates a user flux builder from a user builder.
+     *
+     * @param userBuilder
+     *            user builder
+     */
     public UserFluxBuilder(UserBuilder userBuilder) {
         this.userBuilder = userBuilder;
     }
 
+    /**
+     * Builds a flux of sessions.
+     * <p>
+     * The flux has the number of elements and a delay between sessions defined by the user builder.
+     *
+     * @return flux of sessions
+     */
     public Flux<Session> build() {
         if (userBuilder.getInterval().equals(Duration.ZERO)) {
             return buildAtOnce();
@@ -52,6 +70,7 @@ public class UserFluxBuilder {
 
     private Flux<Session> buildAtOnce() {
         SessionFactory factory = SessionFactory.create();
-        return Flux.range(0, userBuilder.getNumUsers()).map(i -> factory.newSession(userBuilder.nextUserId()));
+        return Flux.range(0, userBuilder.getNumUsers())
+            .map(i -> factory.newSession(userBuilder.nextUserId()));
     }
 }

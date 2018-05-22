@@ -28,24 +28,56 @@ import reactor.core.publisher.Mono;
 import reactor.util.context.Context;
 
 /**
+ * Builds a flux from a list of action builders.
+ *
  * @author Harald Wellmann
  *
  */
 public interface FluxBuilder {
 
+    /**
+     * List of wrapped action builders.
+     *
+     * @return list of action builders
+     */
     default List<ActionBuilder> actionBuilders() {
         return List.empty();
     }
 
+    /**
+     * Builds a flux of sessions for the given scenario context.
+     *
+     * @param context
+     *            scenario context
+     * @return flux of sessions
+     */
     default Flux<Session> buildFlux(ScenarioContext context) {
         FluxBuilderAdapter adapter = new FluxBuilderAdapter();
-        return Flux.concat(actionBuilders().map(a -> adapter.adapt(a)).map(a -> a.buildFlux(context)).toList());
+        return Flux.concat(
+            actionBuilders().map(a -> adapter.adapt(a)).map(a -> a.buildFlux(context)).toList());
     }
 
+    /**
+     * Applies the given flux of actions to the session stored in the subscriber context of the
+     * flux.
+     *
+     * @param action
+     *            flux of actions
+     * @return flux of sessions
+     */
     default Flux<Session> applyToContextSession(Flux<Action> action) {
         return action.flatMap(a -> Mono.subscriberContext().map(ctx -> applyAction(a, ctx)));
     }
 
+    /**
+     * Applies the given action to the session stored in the given context.
+     *
+     * @param action
+     *            action to be applied
+     * @param context
+     *            subscriber context
+     * @return result of applying action to session
+     */
     default Session applyAction(Action action, Context context) {
         Session session = context.get("_session");
         return action.apply(session);
