@@ -44,7 +44,7 @@ public interface Configuration {
 
     /**
      * Gets the directory which contains input templates for payloads. The templates may contain
-     * placeholder to be interpolated with session attributes.
+     * placeholders to be interpolated with session attributes.
      * @return template directory
      */
     @Config("sisyphos.directory.template")
