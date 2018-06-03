@@ -39,8 +39,8 @@ public interface Configuration {
      * run creates a subdirectory of this directory which will contain all simulation output.
      * @return reports directory
      */
-    @Config("sisyphos.directory.reports")
-    String getReportsDirectory();
+    @Config("sisyphos.directory.report")
+    String getReportDirectory();
 
     /**
      * Gets the directory which contains input templates for payloads. The templates may contain

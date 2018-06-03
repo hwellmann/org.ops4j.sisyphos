@@ -56,7 +56,7 @@ public class TamayaInjectionTest {
         @Config("sisyphos.directory.data")
         private String dataPath;
 
-        @Config("sisyphos.directory.reports")
+        @Config("sisyphos.directory.report")
         private String reportPath;
 
         @Config("sisyphos.directory.template")
@@ -68,7 +68,7 @@ public class TamayaInjectionTest {
         }
 
         @Override
-        public String getReportsDirectory() {
+        public String getReportDirectory() {
             return reportPath;
         }
 
